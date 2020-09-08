@@ -62,7 +62,6 @@ public class PlayerScript : MonoBehaviour
             desiredJump = false;
             JumpPhysics();
         }
-        
         rb.velocity = velocity;
         thisAnim.SetFloat("velocityY",rb.velocity.y);
         thisAnim.SetBool("isGrounded", OnGround);
@@ -133,8 +132,8 @@ public class PlayerScript : MonoBehaviour
     }
     
     void AdjustVelocity () {
-        Vector3 xAxis = ProjectOnContactPlane(Vector3.right).normalized;
-        Vector3 zAxis = ProjectOnContactPlane(Vector3.forward).normalized;
+        Vector3 xAxis = ProjectOnContactPlane(transform.right).normalized;
+        Vector3 zAxis = ProjectOnContactPlane(transform.forward).normalized;
         
         float currentX = Vector3.Dot(velocity, xAxis);
         float currentZ = Vector3.Dot(velocity, zAxis);

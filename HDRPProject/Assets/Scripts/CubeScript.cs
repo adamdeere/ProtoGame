@@ -16,7 +16,15 @@ public class CubeScript : MonoBehaviour
 
     private void OnCollisionExit(Collision other)
     {
-        rb.isKinematic = false;
+        if (other.collider.gameObject.name == "Ethan")
+        {
+            rb.isKinematic = false;
+        }
+        else if (other.collider.gameObject.name == "Resetter")
+        {
+            rb.isKinematic = true;
+            rb.position = originalPosition;
+        }
     }
 
     public void ResetObject()
