@@ -16,7 +16,7 @@ public class CubeScript : MonoBehaviour
 
     private void OnCollisionExit(Collision other)
     {
-        if (other.collider.gameObject.name == "Ethan")
+        if (other.collider.gameObject.name.Contains("Ethan"))
         {
             StartCoroutine(CubeFall());
         }

@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
+    private Vector3 initialPos;
     private Animator thisAnim;
     private Vector2 vec2;
     private Rigidbody rb;
@@ -41,6 +42,7 @@ public class PlayerScript : MonoBehaviour
     {
         thisAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        initialPos = rb.position;
         OnValidate();
     }
     
@@ -71,12 +73,16 @@ public class PlayerScript : MonoBehaviour
     }
     
     void OnCollisionEnter (Collision collision) {
+        if (collision.gameObject.name == "Resetter")
+        {
+            rb.position = initialPos;
+        }
         EvaluateCollision(collision);
     }
     void OnCollisionStay (Collision collision) {
         EvaluateCollision(collision);
     }
-    
+
     void OnValidate () {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
     }

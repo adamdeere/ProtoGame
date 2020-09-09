@@ -13,7 +13,6 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         _parentObject = new GameObject();
-        _parentObject = Instantiate(_parentObject,Vector3.zero, Quaternion.identity);
         StartCoroutine(StartSpawnLoop());
     }
 
