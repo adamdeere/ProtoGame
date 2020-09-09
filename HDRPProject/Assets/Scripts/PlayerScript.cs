@@ -66,7 +66,7 @@ public class PlayerScript : MonoBehaviour
         thisAnim.SetFloat("velocityY",rb.velocity.y);
         thisAnim.SetBool("isGrounded", OnGround);
         thisAnim.SetFloat ("Speed", rb.velocity.z);
-        thisAnim.SetFloat ("TurningSpeed", rb.velocity.x);
+        thisAnim.SetFloat ("TurningSpeed", vec2.x);
         ClearState();
     }
     

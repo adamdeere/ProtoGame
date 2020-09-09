@@ -8,8 +8,9 @@ public class Spawner : MonoBehaviour
 {
     public SpawnableObjects so;
     private GameObject _parentObject;
+    public List<SpawnableObjects> listSO;
 
-    private void Start()
+    private void Awake()
     {
         _parentObject = new GameObject();
         _parentObject = Instantiate(_parentObject,Vector3.zero, Quaternion.identity);

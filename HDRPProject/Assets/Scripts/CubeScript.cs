@@ -18,13 +18,19 @@ public class CubeScript : MonoBehaviour
     {
         if (other.collider.gameObject.name == "Ethan")
         {
-            rb.isKinematic = false;
+            StartCoroutine(CubeFall());
         }
         else if (other.collider.gameObject.name == "Resetter")
         {
             rb.isKinematic = true;
             rb.position = originalPosition;
         }
+    }
+
+    IEnumerator CubeFall()
+    {
+        yield return new WaitForSeconds(0.2f);
+        rb.isKinematic = false;
     }
 
     public void ResetObject()
