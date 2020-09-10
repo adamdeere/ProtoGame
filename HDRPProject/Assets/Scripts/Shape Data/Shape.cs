@@ -1,8 +1,9 @@
 ﻿using SaveSystemScripts;
+using UtilityScripts;
 
-namespace Main_game_scripts
+namespace Shape_Data
 {
-    public class Game : PersistantObject
+    public class Shape : PersistantObject, IKillable 
     {
         // Start is called before the first frame update
         void Start()
@@ -14,6 +15,11 @@ namespace Main_game_scripts
         void Update()
         {
         
+        }
+
+        public void DestroyShape()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
