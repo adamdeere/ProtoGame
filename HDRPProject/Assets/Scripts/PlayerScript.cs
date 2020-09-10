@@ -4,16 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
     private Vector3 initialPos;
     private Animator thisAnim;
     public CinemachineFreeLook _freeLookComponent;
+    private CinemachineCameraOffset offsetCamera;
+    private Vector3 originalOffset = new Vector3(-0.71f,-0.21f,0.33f);
     private Quaternion newDirection;
     private Camera mainCamera;
     private Vector2 vec2;
     private Rigidbody rb;
+    public Image aImage;
     public float turnSpeed = 15f;
     [Range(0f, 10f)] public float LookSpeed = 0.5f;
     public bool InvertY = false;
@@ -47,6 +51,7 @@ public class PlayerScript : MonoBehaviour
         mainCamera = Camera.main;
         thisAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        offsetCamera = _freeLookComponent.GetComponent<CinemachineCameraOffset>();
         initialPos = rb.position;
         OnValidate();
     }
@@ -223,10 +228,14 @@ public class PlayerScript : MonoBehaviour
         if (thisAnim.GetBool("Hostility"))
         {
             thisAnim.SetBool("Hostility",false);
+            offsetCamera.m_Offset = Vector3.zero;
+            aImage.enabled = false;
         }
         else
         {
             thisAnim.SetBool("Hostility",true);
+            offsetCamera.m_Offset = originalOffset;
+            aImage.enabled = true;
         }
     }
     
