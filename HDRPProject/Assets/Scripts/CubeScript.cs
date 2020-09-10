@@ -16,7 +16,7 @@ public class CubeScript : MonoBehaviour
 
     private void OnCollisionExit(Collision other)
     {
-        if (other.collider.gameObject.name.Contains("Ethan"))
+        if (other.collider.gameObject.name == "John")
         {
             StartCoroutine(CubeFall());
         }
@@ -24,6 +24,7 @@ public class CubeScript : MonoBehaviour
         {
             rb.isKinematic = true;
             rb.position = originalPosition;
+            rb.rotation = Quaternion.identity;
         }
     }
 

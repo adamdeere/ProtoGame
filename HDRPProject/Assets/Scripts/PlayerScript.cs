@@ -12,7 +12,8 @@ public class PlayerScript : MonoBehaviour
     private Animator thisAnim;
     public CinemachineFreeLook _freeLookComponent;
     private CinemachineCameraOffset offsetCamera;
-    private Vector3 originalOffset = new Vector3(-0.71f,-0.21f,0.33f);
+    private readonly Vector3 originalOffset = new Vector3(-0.71f,-0.21f,0.33f);
+    public SpawnableObjects cube;
     private Quaternion newDirection;
     private Camera mainCamera;
     private Vector2 vec2;
@@ -21,7 +22,6 @@ public class PlayerScript : MonoBehaviour
     public float turnSpeed = 15f;
     [Range(0f, 10f)] public float LookSpeed = 0.5f;
     public bool InvertY = false;
-    private bool rotChange = false;
     private Vector3 velocity, desiredVelocity;
     int groundContactCount;
     bool OnGround => groundContactCount > 0;
@@ -243,13 +243,13 @@ public class PlayerScript : MonoBehaviour
     {
         Vector2 lookMovement = context.ReadValue<Vector2>().normalized;
         lookMovement.y = InvertY ? -lookMovement.y : lookMovement.y;
-
-        // This is because X axis is only contains between -180 and 180 instead of 0 and 1 like the Y axis
-        lookMovement.x = lookMovement.x * 180f; 
-
-        //Ajust axis values using look speed and Time.deltaTime so the look doesn't go faster if there is more FPS
+        lookMovement.x = lookMovement.x * 180f;
         _freeLookComponent.m_XAxis.Value += lookMovement.x * LookSpeed * Time.deltaTime;
         _freeLookComponent.m_YAxis.Value += lookMovement.y * LookSpeed * Time.deltaTime;
     }
-    
+
+    public void SpawnCube(InputAction.CallbackContext context)
+    {
+        cube.SpawnOne(transform.position + transform.up * -1f);
+    }
 }

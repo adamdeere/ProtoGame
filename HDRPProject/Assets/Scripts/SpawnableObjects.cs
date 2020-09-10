@@ -13,4 +13,9 @@ public class SpawnableObjects : ScriptableObject
     {
         Instantiate(entity, prefabPosition, Quaternion.identity,parentObject.transform);
     }
+
+    public void SpawnOne(Vector3 position)
+    {
+        Instantiate(entity, position, Quaternion.identity);
+    }
 }
