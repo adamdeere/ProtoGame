@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Swir
+  m_Name: PortalMatt
   m_Shader: {fileID: -6465566751694194690, guid: aa1b04caf95204952b0853044933feb2,
     type: 3}
   m_ShaderKeywords: _NORMALMAP_TANGENT_SPACE
@@ -238,7 +238,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - Color_1CEEC4A6: {r: 3.3568628, g: 0, b: 5.799759, a: 0}
+    - Color_1CEEC4A6: {r: 8.088856, g: 0.11446474, b: 0.66588604, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
