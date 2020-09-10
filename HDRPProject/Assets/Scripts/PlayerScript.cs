@@ -9,8 +9,12 @@ public class PlayerScript : MonoBehaviour
 {
     private Vector3 initialPos;
     private Animator thisAnim;
+    public CinemachineFreeLook _freeLookComponent;
+    private Quaternion newDirection;
+    private Camera mainCamera;
     private Vector2 vec2;
     private Rigidbody rb;
+    public float turnSpeed = 15f;
     [Range(0f, 10f)] public float LookSpeed = 0.5f;
     public bool InvertY = false;
     private bool rotChange = false;
@@ -40,6 +44,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Awake()
     {
+        mainCamera = Camera.main;
         thisAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         initialPos = rb.position;
@@ -57,6 +62,8 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        float camFloat = mainCamera.transform.rotation.eulerAngles.y;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0,camFloat,0), turnSpeed * Time.fixedDeltaTime);
         UpdateState();
         AdjustVelocity();
         if (desiredJump)
@@ -67,7 +74,7 @@ public class PlayerScript : MonoBehaviour
         rb.velocity = velocity;
         thisAnim.SetFloat("velocityY",rb.velocity.y);
         thisAnim.SetBool("isGrounded", OnGround);
-        thisAnim.SetFloat ("Speed", rb.velocity.z);
+        thisAnim.SetFloat ("Speed", vec2.y);
         thisAnim.SetFloat ("TurningSpeed", vec2.x);
         ClearState();
     }
@@ -226,10 +233,14 @@ public class PlayerScript : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         Vector2 lookMovement = context.ReadValue<Vector2>().normalized;
-        Vector3 vec3 = new Vector3(0f,lookMovement.x * 180f * LookSpeed * Time.deltaTime,0f);
-        Quaternion deltaRotation = Quaternion.Euler(vec3);
-        rb.MoveRotation(rb.rotation * deltaRotation);
-        rotChange = true;
+        lookMovement.y = InvertY ? -lookMovement.y : lookMovement.y;
+
+        // This is because X axis is only contains between -180 and 180 instead of 0 and 1 like the Y axis
+        lookMovement.x = lookMovement.x * 180f; 
+
+        //Ajust axis values using look speed and Time.deltaTime so the look doesn't go faster if there is more FPS
+        _freeLookComponent.m_XAxis.Value += lookMovement.x * LookSpeed * Time.deltaTime;
+        _freeLookComponent.m_YAxis.Value += lookMovement.y * LookSpeed * Time.deltaTime;
     }
     
 }
