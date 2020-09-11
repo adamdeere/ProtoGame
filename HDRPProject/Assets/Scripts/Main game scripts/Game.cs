@@ -18,6 +18,10 @@ namespace Main_game_scripts
         private KeyBoardInputs _input;
         private List<Shape> _objectsList;
 
+        [SerializeField] private float CreationSpeed;
+        private float creationProgress;
+
+
         private void Awake()
         {
             _input = new KeyBoardInputs();
@@ -32,9 +36,17 @@ namespace Main_game_scripts
         private void OnEnable()
         {
             _input.KeyBoard.Enable();
-
         }
 
+        public void Update () 
+        {
+            creationProgress += Time.deltaTime * CreationSpeed;
+            while (creationProgress >= 1f) 
+            {
+                creationProgress -= 1f;
+                CreateObject();
+            }
+        }
         private void OnDisable()
         {
             _input.KeyBoard.Disable();
@@ -60,7 +72,7 @@ namespace Main_game_scripts
         {
             foreach (var t in _objectsList)
             {
-                Destroy(t.gameObject);
+                _shapeFactory.Reclaim(t);
             }
 
             _objectsList.Clear();
@@ -115,6 +127,17 @@ namespace Main_game_scripts
                 Shape instance = _shapeFactory.Get(shapeId, materialId);
                 instance.Load(reader);
                 _objectsList.Add(instance);
+            }
+        }
+        void DestroyShape () 
+        {
+            if (_objectsList.Count > 0) 
+            {
+                int index = Random.Range(0, _objectsList.Count);
+                _shapeFactory.Reclaim(_objectsList[index]);
+                int lastIndex = _objectsList.Count - 1;
+                _objectsList[index] = _objectsList[lastIndex];
+                _objectsList.RemoveAt(lastIndex);
             }
         }
     }
