@@ -1,0 +1,90 @@
+{
+    "name": "KeyBoardInputs",
+    "maps": [
+        {
+            "name": "KeyBoard",
+            "id": "22729cbd-56cd-4af9-9495-2816cb6f8023",
+            "actions": [
+                {
+                    "name": "Create",
+                    "type": "Button",
+                    "id": "e77ffa7b-4e5e-45a5-8669-81ebc3ea7621",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Load",
+                    "type": "Button",
+                    "id": "1cec6b29-6757-4561-8e7f-dc601f4a8a9a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Save",
+                    "type": "Button",
+                    "id": "8e1f9229-6cb3-4e5c-aee1-d52a503f8913",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "842c34ad-4cd4-4d3d-afdf-19514cf94007",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "077738d4-ffce-418e-a1f5-8c7e09c6e9fc",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Create",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85387ea3-7430-4352-9fa5-2a73488ae59a",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Load",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "edbe6b97-932d-4fe0-8c6f-453370200ecb",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Save",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de4eac7a-2f0b-44aa-af0d-c671c0d03ee2",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
