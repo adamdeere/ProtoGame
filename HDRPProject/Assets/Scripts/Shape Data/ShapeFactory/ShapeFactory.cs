@@ -58,6 +58,7 @@ namespace Shape_Data.ShapeFactory
                 {
                     instance = Instantiate(prefabs[shapeId]);
                     instance.ShapeId = shapeId;
+                    SceneManager.MoveGameObjectToScene(instance.gameObject, _poolScene);
                 }
             }
             else
@@ -77,6 +78,28 @@ namespace Shape_Data.ShapeFactory
             {
                 _pools[i] = new List<Shape>();
             }
+            if (Application.isEditor) 
+            {
+                _poolScene = SceneManager.GetSceneByName(name);
+                if (_poolScene.isLoaded)
+                {
+                    GameObject[] rootObjects = _poolScene.GetRootGameObjects();
+                    foreach (var t in rootObjects)
+                    {
+                        Shape pooledShape = t.GetComponent<Shape>();
+                        if (!pooledShape.gameObject.activeSelf) 
+                        {
+                            _pools[pooledShape.ShapeId].Add(pooledShape);
+                        }
+                    }
+                    return;
+                }
+                
+                   
+                
+            }
+            
+            _poolScene = SceneManager.CreateScene(name);
         }
     }
 }
