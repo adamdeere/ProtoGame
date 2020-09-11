@@ -94,11 +94,7 @@ namespace Shape_Data.ShapeFactory
                     }
                     return;
                 }
-                
-                   
-                
             }
-            
             _poolScene = SceneManager.CreateScene(name);
         }
     }

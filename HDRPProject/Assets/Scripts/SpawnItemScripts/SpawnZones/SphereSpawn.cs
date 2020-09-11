@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
+using UtilityScripts;
 
 namespace SpawnItemScripts.SpawnZones
 {
     public class SphereSpawn : SpawnZone
     {
         [SerializeField] private bool surfaceOnly;
-   
+        public static event AddToSpawnZone AddSpawn;
+
+        private void OnEnable()
+        {
+            AddSpawn?.Invoke(this);
+        }
 
         public override Vector3 SpawnPoint => transform.TransformPoint(surfaceOnly ? Random.onUnitSphere : Random.insideUnitSphere);
 

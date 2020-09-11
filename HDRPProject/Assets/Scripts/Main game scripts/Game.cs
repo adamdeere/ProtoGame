@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using SaveSystemScripts;
 using Shape_Data;
 using Shape_Data.ShapeFactory;
+using SpawnItemScripts.SpawnZones;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,6 +17,10 @@ namespace Main_game_scripts
         [SerializeField] private ShapeFactory _shapeFactory;
         [SerializeField] private PersistantStorage storage;
 
+        public SpawnZone SpawnZoneOfLevel { get; set; }
+        
+        public static Game Instance { get; private set; }
+
         private KeyBoardInputs _input;
         private List<Shape> _objectsList;
 
@@ -24,6 +30,7 @@ namespace Main_game_scripts
 
         private void Awake()
         {
+            Instance = this;
             _input = new KeyBoardInputs();
             _input.KeyBoard.Create.started += context => CreateObject();
             _input.KeyBoard.Load.started += context => LoadGame();
@@ -36,6 +43,11 @@ namespace Main_game_scripts
         private void OnEnable()
         {
             _input.KeyBoard.Enable();
+        }
+
+        private void Start()
+        {
+           
         }
 
         public void Update () 
@@ -93,9 +105,7 @@ namespace Main_game_scripts
         {
             Shape instance = _shapeFactory.GetRandom();
             Transform t = instance.transform;
-            t.localPosition = Random.insideUnitSphere * 5f;
-            t.localRotation = Random.rotation;
-            t.localScale = Vector3.one * Random.Range(0.1f, 1f);
+            t.localPosition = SpawnZoneOfLevel.SpawnPoint;
             instance.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.25f, 1f, 1f, 1f));
             _objectsList.Add(instance);
         }

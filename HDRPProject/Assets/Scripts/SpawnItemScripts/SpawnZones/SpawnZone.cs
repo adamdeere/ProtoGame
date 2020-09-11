@@ -12,15 +12,15 @@ namespace SpawnItemScripts.SpawnZones
         private float _spawnProgress;
         
         
-        // public override void Save (GameDataWriter writer) 
-        // {
-        //     writer.Write(_spawnProgress);
-        // }
-        //
-        // public override void Load (GameDataReader reader) 
-        // {
-        //     _spawnProgress = reader.ReadFloat();
-        // }
+        public override void Save (GameDataWriter writer) 
+        {
+            writer.Write(_spawnProgress);
+        }
+        
+        public override void Load (GameDataReader reader) 
+        {
+            _spawnProgress = reader.ReadFloat();
+        }
 
         public virtual void SpawnShape()
         {

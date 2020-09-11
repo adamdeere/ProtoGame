@@ -1,10 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UtilityScripts;
+using Random = UnityEngine.Random;
 
 namespace SpawnItemScripts.SpawnZones
 {
     public class CubeSpawn : SpawnZone
     {
         [SerializeField] private bool surfaceOnly;
+        public static event AddToSpawnZone AddSpawn;
+
+        private void OnEnable()
+        {
+            AddSpawn?.Invoke(this);
+        }
+
         public override Vector3 SpawnPoint 
         {
             get 
