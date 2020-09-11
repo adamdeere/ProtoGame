@@ -62,9 +62,9 @@ namespace Shape_Data
             sharedPropertyBlock.SetColor(colorPropertyId, color);
             meshRenderer.SetPropertyBlock(sharedPropertyBlock);
         }
-        public void DestroyShape()
+        public void DoDamage()
         {
-            throw new System.NotImplementedException();
+           Destroy(gameObject);
         }
     }
 }

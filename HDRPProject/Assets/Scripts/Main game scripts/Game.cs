@@ -105,7 +105,11 @@ namespace Main_game_scripts
         {
             Shape instance = _shapeFactory.GetRandom();
             Transform t = instance.transform;
-            t.localPosition = SpawnZoneOfLevel.SpawnPoint;
+            Vector3 pos = t.localPosition;
+            pos = SpawnZoneOfLevel.SpawnPoint;
+            pos.y = 10;
+            t.localPosition = pos;
+            t.rotation = SpawnZoneOfLevel.SpawnRotation;
             instance.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.25f, 1f, 1f, 1f));
             _objectsList.Add(instance);
         }

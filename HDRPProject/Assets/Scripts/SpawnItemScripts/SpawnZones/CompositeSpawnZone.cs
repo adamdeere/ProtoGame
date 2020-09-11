@@ -30,7 +30,7 @@ namespace SpawnItemScripts.SpawnZones
             CubeSpawn.AddSpawn -= AddSpawnZone;
             SphereSpawn.AddSpawn -= AddSpawnZone;
         }
-
+        public override Quaternion SpawnRotation => transform.rotation;
         public override Vector3 SpawnPoint 
         {
             get 

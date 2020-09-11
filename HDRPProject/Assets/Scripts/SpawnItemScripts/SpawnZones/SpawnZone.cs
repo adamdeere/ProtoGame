@@ -8,7 +8,9 @@ namespace SpawnItemScripts.SpawnZones
     public abstract class SpawnZone : PersistantObject
     {
         public abstract Vector3 SpawnPoint { get; }
-        
+
+        public abstract Quaternion SpawnRotation { get; }
+
         private float _spawnProgress;
         
         

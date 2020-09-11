@@ -8,6 +8,7 @@ namespace SpawnItemScripts.SpawnZones
     public class CubeSpawn : SpawnZone
     {
         [SerializeField] private bool surfaceOnly;
+        [SerializeField] private Transform spawnPoint;
         public static event AddToSpawnZone AddSpawn;
 
         private void OnEnable()
@@ -28,14 +29,16 @@ namespace SpawnItemScripts.SpawnZones
                     int axis = Random.Range(0, 3);
                     p[axis] = p[axis] < 0f ? -0.5f : 0.5f;
                 }
-                return transform.TransformPoint(p);
+                return spawnPoint.transform.TransformPoint(p);
             }
         }
-    
+
+        public override Quaternion SpawnRotation => transform.rotation;
+
         void OnDrawGizmos () 
         {
             Gizmos.color = Color.cyan;
-            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.matrix = spawnPoint.transform.localToWorldMatrix;
             Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
         }
     }
