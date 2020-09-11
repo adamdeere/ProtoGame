@@ -245,9 +245,6 @@ public class PlayerScript : MonoBehaviour
         Vector2 lookMovement = context.ReadValue<Vector2>().normalized;
         lookMovement.y = InvertY ? -lookMovement.y : lookMovement.y;
         thisAnim.SetFloat("AnalogueX", lookMovement.x);
-        lookMovement.x *= 180f;
-        _freeLookComponent.m_XAxis.Value += lookMovement.x * LookSpeed * Time.deltaTime;
-        _freeLookComponent.m_YAxis.Value += lookMovement.y * LookSpeed * Time.deltaTime;
     }
 
     public void SpawnCube(InputAction.CallbackContext context)
