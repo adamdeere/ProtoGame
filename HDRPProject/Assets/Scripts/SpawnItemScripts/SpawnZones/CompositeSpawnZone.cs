@@ -12,23 +12,17 @@ namespace SpawnItemScripts.SpawnZones
         [SerializeField] private bool sequential;
         [SerializeField] private bool overrideConfig;
         private int _nextSequentialIndex;
-        private List<SpawnZone> spawnZones;
+        private List<SpawnZone> _spawnZones;
         
         private void Awake()
         {
-            spawnZones = new List<SpawnZone>();
+            _spawnZones = new List<SpawnZone>();
             CubeSpawn.AddSpawn += AddSpawnZone;
             SphereSpawn.AddSpawn += AddSpawnZone;
         }
-
-        private void Start()
-        {
-            int i = spawnZones.Count;
-        }
-
         private void AddSpawnZone(SpawnZone zone)
         {
-            spawnZones.Add(zone);
+            _spawnZones.Add(zone);
         }
 
         private void OnDestroy()
@@ -45,16 +39,16 @@ namespace SpawnItemScripts.SpawnZones
                 if (sequential) 
                 {
                     index = _nextSequentialIndex++;
-                    if (_nextSequentialIndex >= spawnZones.Count) 
+                    if (_nextSequentialIndex >= _spawnZones.Count) 
                     {
                         _nextSequentialIndex = 0;
                     }
                 }
                 else 
                 {
-                    index = Random.Range(0, spawnZones.Count);
+                    index = Random.Range(0, _spawnZones.Count);
                 }
-                return spawnZones[index].SpawnPoint;
+                return _spawnZones[index].SpawnPoint;
             }
         }
         
@@ -69,16 +63,16 @@ namespace SpawnItemScripts.SpawnZones
                 if (sequential) 
                 {
                     index = _nextSequentialIndex++;
-                    if (_nextSequentialIndex >= spawnZones.Count) 
+                    if (_nextSequentialIndex >= _spawnZones.Count) 
                     {
                         _nextSequentialIndex = 0;
                     }
                 }
                 else 
                 { 
-                    index = Random.Range(0, spawnZones.Count);
+                    index = Random.Range(0, _spawnZones.Count);
                 }
-                spawnZones[index].SpawnShape();
+                _spawnZones[index].SpawnShape();
             }
         }
         public override void Save (GameDataWriter writer) 
@@ -89,7 +83,7 @@ namespace SpawnItemScripts.SpawnZones
         
         public override void Load (GameDataReader reader) 
         {
-            if (reader.Version >= 7)
+            if (reader.Version >= 1)
             {
                 base.Load(reader);
             }
