@@ -182,7 +182,7 @@
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -246,7 +246,7 @@
                     "name": "",
                     "id": "d7e8147b-319d-4af1-a559-67df84eadd47",
                     "path": "<Gamepad>/leftShoulder",
-                    "interactions": "Press",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "SpawnCube",

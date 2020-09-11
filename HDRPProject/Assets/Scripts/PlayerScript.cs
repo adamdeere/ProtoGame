@@ -81,6 +81,7 @@ public class PlayerScript : MonoBehaviour
         thisAnim.SetBool("isGrounded", OnGround);
         thisAnim.SetFloat ("Speed", vec2.y);
         thisAnim.SetFloat ("TurningSpeed", vec2.x);
+        thisAnim.SetFloat("CombineSTS",vec2.x * vec2.y);
         ClearState();
     }
     
@@ -241,9 +242,10 @@ public class PlayerScript : MonoBehaviour
     
     public void OnLook(InputAction.CallbackContext context)
     {
-        Vector2 lookMovement = context.ReadValue<Vector2>().normalized;
+        Vector2 lookMovement = context.ReadValue<Vector2>();
         lookMovement.y = InvertY ? -lookMovement.y : lookMovement.y;
-        lookMovement.x = lookMovement.x * 180f;
+        thisAnim.SetFloat("AnalogueX", lookMovement.x);
+        lookMovement.x *= 180f;
         _freeLookComponent.m_XAxis.Value += lookMovement.x * LookSpeed * Time.deltaTime;
         _freeLookComponent.m_YAxis.Value += lookMovement.y * LookSpeed * Time.deltaTime;
     }
