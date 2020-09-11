@@ -9,8 +9,13 @@ public class SpawnableObjects : ScriptableObject
     public GameObject entity;
     public Vector3 prefabPosition;
 
-    public void Spawner()
+    public void Spawner(GameObject parentObject)
     {
-        Instantiate(entity, prefabPosition, Quaternion.identity);
+        Instantiate(entity, prefabPosition, Quaternion.identity,parentObject.transform);
+    }
+
+    public void SpawnOne(Vector3 position)
+    {
+        Instantiate(entity, position, Quaternion.identity);
     }
 }

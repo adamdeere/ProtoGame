@@ -16,15 +16,22 @@ public class CubeScript : MonoBehaviour
 
     private void OnCollisionExit(Collision other)
     {
-        if (other.collider.gameObject.name == "Ethan")
+        if (other.collider.gameObject.name == "John")
         {
-            rb.isKinematic = false;
+            StartCoroutine(CubeFall());
         }
         else if (other.collider.gameObject.name == "Resetter")
         {
             rb.isKinematic = true;
             rb.position = originalPosition;
+            rb.rotation = Quaternion.identity;
         }
+    }
+
+    IEnumerator CubeFall()
+    {
+        yield return new WaitForSeconds(0.2f);
+        rb.isKinematic = false;
     }
 
     public void ResetObject()

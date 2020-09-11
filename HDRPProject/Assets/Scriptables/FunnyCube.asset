@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed349ae1fbfe74c8a9ee9f9cb6c33a2d, type: 3}
   m_Name: FunnyCube
   m_EditorClassIdentifier: 
-  entity: {fileID: 4364209331409147882, guid: 55a0be5eac2624234af678d5252dcd1c, type: 3}
+  entity: {fileID: 4364209331409147882, guid: 756ec14ac393f48ff929f6b88e4d2417, type: 3}
   prefabPosition: {x: 49, y: 0, z: 49}

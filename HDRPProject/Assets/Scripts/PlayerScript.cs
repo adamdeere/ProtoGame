@@ -4,15 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
+    private Vector3 initialPos;
     private Animator thisAnim;
+    public CinemachineFreeLook _freeLookComponent;
+    private CinemachineCameraOffset offsetCamera;
+    private readonly Vector3 originalOffset = new Vector3(-0.71f,-0.21f,0.33f);
+    public SpawnableObjects cube;
+    private Quaternion newDirection;
+    private Camera mainCamera;
     private Vector2 vec2;
     private Rigidbody rb;
+    public Image aImage;
+    public float turnSpeed = 15f;
     [Range(0f, 10f)] public float LookSpeed = 0.5f;
     public bool InvertY = false;
-    private bool rotChange = false;
     private Vector3 velocity, desiredVelocity;
     int groundContactCount;
     bool OnGround => groundContactCount > 0;
@@ -39,8 +48,11 @@ public class PlayerScript : MonoBehaviour
 
     private void Awake()
     {
+        mainCamera = Camera.main;
         thisAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        offsetCamera = _freeLookComponent.GetComponent<CinemachineCameraOffset>();
+        initialPos = rb.position;
         OnValidate();
     }
     
@@ -55,6 +67,8 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        float camFloat = mainCamera.transform.rotation.eulerAngles.y;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0,camFloat,0), turnSpeed * Time.fixedDeltaTime);
         UpdateState();
         AdjustVelocity();
         if (desiredJump)
@@ -65,18 +79,23 @@ public class PlayerScript : MonoBehaviour
         rb.velocity = velocity;
         thisAnim.SetFloat("velocityY",rb.velocity.y);
         thisAnim.SetBool("isGrounded", OnGround);
-        thisAnim.SetFloat ("Speed", rb.velocity.z);
-        thisAnim.SetFloat ("TurningSpeed", rb.velocity.x);
+        thisAnim.SetFloat ("Speed", vec2.y);
+        thisAnim.SetFloat ("TurningSpeed", vec2.x);
+        thisAnim.SetFloat("CombineSTS",vec2.x * vec2.y);
         ClearState();
     }
     
     void OnCollisionEnter (Collision collision) {
+        if (collision.gameObject.name == "Resetter")
+        {
+            rb.position = initialPos;
+        }
         EvaluateCollision(collision);
     }
     void OnCollisionStay (Collision collision) {
         EvaluateCollision(collision);
     }
-    
+
     void OnValidate () {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
     }
@@ -210,20 +229,29 @@ public class PlayerScript : MonoBehaviour
         if (thisAnim.GetBool("Hostility"))
         {
             thisAnim.SetBool("Hostility",false);
+            offsetCamera.m_Offset = Vector3.zero;
+            aImage.enabled = false;
         }
         else
         {
             thisAnim.SetBool("Hostility",true);
+            offsetCamera.m_Offset = originalOffset;
+            aImage.enabled = true;
         }
     }
     
     public void OnLook(InputAction.CallbackContext context)
     {
-        Vector2 lookMovement = context.ReadValue<Vector2>().normalized;
-        Vector3 vec3 = new Vector3(0f,lookMovement.x * 180f * LookSpeed * Time.deltaTime,0f);
-        Quaternion deltaRotation = Quaternion.Euler(vec3);
-        rb.MoveRotation(rb.rotation * deltaRotation);
-        rotChange = true;
+        Vector2 lookMovement = context.ReadValue<Vector2>();
+        lookMovement.y = InvertY ? -lookMovement.y : lookMovement.y;
+        thisAnim.SetFloat("AnalogueX", lookMovement.x);
+        lookMovement.x *= 180f;
+        _freeLookComponent.m_XAxis.Value += lookMovement.x * LookSpeed * Time.deltaTime;
+        _freeLookComponent.m_YAxis.Value += lookMovement.y * LookSpeed * Time.deltaTime;
     }
-    
+
+    public void SpawnCube(InputAction.CallbackContext context)
+    {
+        cube.SpawnOne(transform.position + transform.up * -1f);
+    }
 }
