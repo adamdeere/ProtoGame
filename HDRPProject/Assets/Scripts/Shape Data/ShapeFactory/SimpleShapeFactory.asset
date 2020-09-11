@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c84e96f8e8fa34ad1a8e38c772a02825, type: 3}
   m_Name: SimpleShapeFactory
   m_EditorClassIdentifier: 
-  prefabs: []
+  prefabs:
+  - {fileID: 2422580163351429584, guid: 0b97512334ec643f2878ff12bb29e539, type: 3}
+  - {fileID: 134132372728442185, guid: c37bd5c9bee95486a8162a2704049224, type: 3}
   materials: []
   recycle: 0

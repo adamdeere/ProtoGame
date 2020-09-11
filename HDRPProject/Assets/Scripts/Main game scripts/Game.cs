@@ -74,7 +74,7 @@ namespace Main_game_scripts
 
         private void SaveGame()
         {
-            storage.Save(this, 1);
+            storage.Save(this, SaveVersion);
         }
 
         private void CreateObject()
@@ -84,26 +84,35 @@ namespace Main_game_scripts
             t.localPosition = Random.insideUnitSphere * 5f;
             t.localRotation = Random.rotation;
             t.localScale = Vector3.one * Random.Range(0.1f, 1f);
+            instance.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.25f, 1f, 1f, 1f));
             _objectsList.Add(instance);
         }
 
         public override void Save(GameDataWriter writer)
         {
-            writer.Write(SaveVersion); 
             writer.Write(_objectsList.Count);
             foreach (var t in _objectsList)
             {
+                writer.Write(t.ShapeId);
+                writer.Write(t.MaterialId);
                 t.Save(writer);
             }
         }
         
         public override void Load (GameDataReader reader) 
         {
-            int version = reader.ReadInt();
-            int count = reader.ReadInt();
+            int version = reader.Version;
+            int count = version <= 0 ? -version : reader.ReadInt();
+            if (version > SaveVersion) 
+            {
+                Debug.LogError("Unsupported future save version " + version);
+                return;
+            }
             for (int i = 0; i < count; i++) 
             {
-                Shape instance = _shapeFactory.Get(0);
+                int shapeId = version > 0 ? reader.ReadInt() : 0;
+                int materialId = version > 0 ? reader.ReadInt() : 0;
+                Shape instance = _shapeFactory.Get(shapeId, materialId);
                 instance.Load(reader);
                 _objectsList.Add(instance);
             }

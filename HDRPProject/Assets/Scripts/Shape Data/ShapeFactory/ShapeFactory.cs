@@ -12,10 +12,10 @@ namespace Shape_Data.ShapeFactory
         [SerializeField] private Shape[] prefabs;
         [SerializeField] private Material[] materials;
         [SerializeField] private bool recycle;
+      
         private List<Shape>[] _pools;
         private Scene _poolScene;
-        [NonSerialized]
-        int factoryId = int.MinValue;
+        [NonSerialized] private int factoryId = int.MinValue;
 
         public Shape Get(int shapeId)
         {
@@ -25,7 +25,15 @@ namespace Shape_Data.ShapeFactory
         }
         public Shape GetRandom () 
         {
-            return Get(Random.Range(0, prefabs.Length));
+            return Get(Random.Range(0, prefabs.Length),Random.Range(0, materials.Length));
+        }
+        
+        public Shape Get (int shapeId = 0, int materialId = 0) 
+        {
+            Shape instance = Instantiate(prefabs[shapeId]);
+            instance.ShapeId = shapeId;
+            instance.SetMaterial(materials[materialId], materialId);
+            return instance;
         }
     }
 }
