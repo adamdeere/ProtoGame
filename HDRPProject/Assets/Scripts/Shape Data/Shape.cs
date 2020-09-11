@@ -1,20 +1,27 @@
 ﻿using SaveSystemScripts;
+using UnityEngine;
 using UtilityScripts;
 
 namespace Shape_Data
 {
-    public class Shape : PersistantObject, IKillable 
+    public class Shape : PersistantObject, IKillable
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        private int shapeId = int.MinValue;
 
-        // Update is called once per frame
-        void Update()
+        public int ShapeId 
         {
-        
+            get => shapeId;
+            set 
+            {
+                if (shapeId == int.MinValue && value != int.MinValue) 
+                {
+                    shapeId = value;
+                }
+                else 
+                {
+                    Debug.LogError("Not allowed to change shapeId.");
+                }
+            }
         }
 
         public void DestroyShape()

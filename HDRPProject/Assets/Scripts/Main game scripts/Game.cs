@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using SaveSystemScripts;
+using Shape_Data;
+using Shape_Data.ShapeFactory;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,11 +10,13 @@ namespace Main_game_scripts
 {
     public class Game : PersistantObject
     {
-        [SerializeField] private PersistantObject prefab;
+        private const int SaveVersion = 1;
+        
+        [SerializeField] private ShapeFactory _shapeFactory;
         [SerializeField] private PersistantStorage storage;
 
         private KeyBoardInputs _input;
-        private List<PersistantObject> _objectsList;
+        private List<Shape> _objectsList;
 
         private void Awake()
         {
@@ -21,7 +25,7 @@ namespace Main_game_scripts
             _input.KeyBoard.Load.started += context => LoadGame();
             _input.KeyBoard.Save.started += context => SaveGame();
             _input.KeyBoard.Quit.started += context => QuitGame();
-            _objectsList = new List<PersistantObject>();
+            _objectsList = new List<Shape>();
 
         }
 
@@ -75,14 +79,17 @@ namespace Main_game_scripts
 
         private void CreateObject()
         {
-            PersistantObject enemyObject = Instantiate(prefab);
-            Transform t = enemyObject.transform;
+            Shape instance = _shapeFactory.GetRandom();
+            Transform t = instance.transform;
             t.localPosition = Random.insideUnitSphere * 5f;
-            _objectsList.Add(enemyObject);
+            t.localRotation = Random.rotation;
+            t.localScale = Vector3.one * Random.Range(0.1f, 1f);
+            _objectsList.Add(instance);
         }
 
         public override void Save(GameDataWriter writer)
         {
+            writer.Write(SaveVersion); 
             writer.Write(_objectsList.Count);
             foreach (var t in _objectsList)
             {
@@ -92,12 +99,13 @@ namespace Main_game_scripts
         
         public override void Load (GameDataReader reader) 
         {
+            int version = reader.ReadInt();
             int count = reader.ReadInt();
             for (int i = 0; i < count; i++) 
             {
-                PersistantObject o = Instantiate(prefab);
-                o.Load(reader);
-                _objectsList.Add(o);
+                Shape instance = _shapeFactory.Get(0);
+                instance.Load(reader);
+                _objectsList.Add(instance);
             }
         }
     }
