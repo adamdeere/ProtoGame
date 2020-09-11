@@ -242,7 +242,7 @@ public class PlayerScript : MonoBehaviour
     
     public void OnLook(InputAction.CallbackContext context)
     {
-        Vector2 lookMovement = context.ReadValue<Vector2>();
+        Vector2 lookMovement = context.ReadValue<Vector2>().normalized;
         lookMovement.y = InvertY ? -lookMovement.y : lookMovement.y;
         thisAnim.SetFloat("AnalogueX", lookMovement.x);
         lookMovement.x *= 180f;
