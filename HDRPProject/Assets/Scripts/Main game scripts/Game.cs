@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using SaveSystemScripts;
 using Shape_Data;
 using Shape_Data.ShapeFactory;
@@ -18,6 +16,7 @@ namespace Main_game_scripts
         [SerializeField] private ShapeFactory _shapeFactory;
         [SerializeField] private PersistantStorage storage;
         [FormerlySerializedAs("_shapeCount")] [SerializeField] private int shapeCount = 30;
+        [FormerlySerializedAs("_resetPosition")] [SerializeField] private Transform resetPosition; 
         public SpawnZone SpawnZoneOfLevel { get; set; }
         
         public static Game Instance { get; private set; }
@@ -28,7 +27,10 @@ namespace Main_game_scripts
         [FormerlySerializedAs("CreationSpeed")] [SerializeField] private float creationSpeed;
         private float _creationProgress;
 
-
+        public Transform ResetPos()
+        {
+            return resetPosition;
+        }
         private void Awake()
         {
             Instance = this;
@@ -127,7 +129,9 @@ namespace Main_game_scripts
         private void CreateObject()
         {
             var instance = _shapeFactory.GetRandom();
-            instance.transform.gameObject.SetActive(false);
+            var t = instance.transform;
+            t.transform.localPosition = resetPosition.transform.localPosition;
+            t.gameObject.SetActive(false);
             _objectsList.Add(instance);
         }
         public override void Save(GameDataWriter writer)

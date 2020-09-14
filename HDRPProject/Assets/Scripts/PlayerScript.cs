@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -55,9 +52,13 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
         offsetCamera = _freeLookComponent.GetComponent<CinemachineCameraOffset>();
         initialPos = rb.position;
         OnValidate();
+        Loco.getPlayer += GetPlayer;
     }
-    
 
+    private GameObject GetPlayer()
+    {
+        return gameObject;
+    }
     void Update ()
     {
         Vector2 playerInput;

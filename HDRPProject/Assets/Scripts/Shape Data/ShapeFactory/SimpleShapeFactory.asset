@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: SimpleShapeFactory
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 2422580163351429584, guid: 0b97512334ec643f2878ff12bb29e539, type: 3}
-  - {fileID: 134132372728442185, guid: c37bd5c9bee95486a8162a2704049224, type: 3}
-  materials:
-  - {fileID: 2100000, guid: 426d8c47f72b948cf87deafeba6f76cf, type: 2}
-  - {fileID: 2100000, guid: 5e860f3a4dda2461b81c093aadef2261, type: 2}
-  - {fileID: 2100000, guid: 626ea12df585248d2b7a4c4c7c65e5db, type: 2}
+  - {fileID: -3037501920827988448, guid: f962e9754e1174fc48f3a9f5825d51ba, type: 3}
+  - {fileID: 9165162011825895003, guid: 6da232811e0104bc580475aaa3e7a99b, type: 3}
+  - {fileID: -8097904007524888570, guid: cf59a79ab3d8b46a090709ab15c0fb7b, type: 3}
+  - {fileID: -221532802952130588, guid: 7831df01902fa4cf4b42af3e5c0beb03, type: 3}
+  - {fileID: -3441003012616914492, guid: a55484d34718748ce8a056b6578f16fa, type: 3}
   recycle: 1

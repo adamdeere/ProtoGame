@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UtilityScripts;
 
 public class Loco : MonoBehaviour
 {
@@ -12,10 +13,12 @@ public class Loco : MonoBehaviour
     Vector2 velocity = Vector2.zero;
 
     private GameObject John;
+    
+    public static event ReturnPlayerFunction getPlayer;
     // Start is called before the first frame update
     void Start()
     {
-        John = GameObject.Find("John");
+        John = getPlayer?.Invoke();
         anim = GetComponent<Animator> ();
         agent = GetComponent<NavMeshAgent> ();
         // Don’t update position automatically

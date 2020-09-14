@@ -1,4 +1,5 @@
 ﻿using System;
+using Main_game_scripts;
 using SaveSystemScripts;
 using UnityEngine;
 using UtilityScripts;
@@ -47,10 +48,14 @@ namespace Shape_Data
 
         public void DoDamage()
         {
-           //reset the shapes original position and disable it
-           //after a death animation, for which we may need to figure out a way of making it less 
-           //read only (as its in this case I think we can do the old duplicate trick for for more animations
-           //we will need a converter tool)
+            //reset the shapes original position and disable it
+            //after a death animation, for which we may need to figure out a way of making it less 
+            //read only (as its in this case I think we can do the old duplicate trick for for more animations
+            //we will need a converter tool)
+             var resetPos = Game.Instance.ResetPos();
+             transform.localPosition = resetPos.localPosition;
+             gameObject.SetActive(false);
+           
         }
     }
 }

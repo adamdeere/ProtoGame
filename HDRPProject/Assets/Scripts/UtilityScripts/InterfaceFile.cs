@@ -1,8 +1,10 @@
 ﻿using SpawnItemScripts.SpawnZones;
+using UnityEngine;
 
 namespace UtilityScripts
 {
     public delegate void AddToSpawnZone(SpawnZone zone);
+    public delegate GameObject ReturnPlayerFunction();
     
     public interface IKillableZombie
     {
