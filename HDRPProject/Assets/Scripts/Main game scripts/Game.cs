@@ -104,22 +104,29 @@ namespace Main_game_scripts
 
         private Shape GetRandom ()
         {
-            var index = (Random.Range(0, _objectsList.Count));
-            return _objectsList[index];
+            foreach (var t in _objectsList)
+            {
+                var index = (Random.Range(0, _objectsList.Count));
+                _objectsList[index].transform.gameObject.SetActive(true);
+                return _objectsList[index];
+            }
+            return null;
         }
         private void ActivateObject()
         {
             Shape instance = GetRandom();
-            Transform t = instance.transform;
-            Vector3 pos = SpawnZoneOfLevel.SpawnPoint;
-            //we will need to find a better method of doing this. we may need to find a half way point of the mesh and add it to the Y value
-            pos.y = 10.85f;
-            t.localPosition = pos;
-            t.gameObject.SetActive(true);
+            if (instance != null)
+            {
+                var t = instance.transform;
+                var pos = SpawnZoneOfLevel.SpawnPoint;
+                //we will need to find a better method of doing this. we may need to find a half way point of the mesh and add it to the Y value
+                pos.y = 10.85f;
+                t.transform.localPosition = pos;
+            }
         }
         private void CreateObject()
         {
-            Shape instance = _shapeFactory.GetRandom();
+            var instance = _shapeFactory.GetRandom();
             instance.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.25f, 1f, 1f, 1f));
             instance.transform.gameObject.SetActive(false);
             _objectsList.Add(instance);
