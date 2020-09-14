@@ -91,6 +91,8 @@ public class PlayerScript : MonoBehaviour, IKillable
         {
             rb.position = initialPos;
         }
+        IKillable kill = collision.collider.gameObject.GetComponent<IKillable>();
+        kill?.DoDamage();
         EvaluateCollision(collision);
     }
     void OnCollisionStay (Collision collision) {
@@ -256,6 +258,7 @@ public class PlayerScript : MonoBehaviour, IKillable
     public void DoDamage()
     {
         //deal damage to john from outgoing collision
-        throw new NotImplementedException();
+       // throw new NotImplementedException();
+       Debug.Log("damage done to player");
     }
 }

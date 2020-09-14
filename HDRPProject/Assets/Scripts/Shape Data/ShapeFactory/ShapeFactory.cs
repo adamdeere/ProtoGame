@@ -10,7 +10,7 @@ namespace Shape_Data.ShapeFactory
     public class ShapeFactory : ScriptableObject
     {
         [SerializeField] private Shape[] prefabs;
-        [SerializeField] private Material[] materials;
+       
         [SerializeField] private bool recycle;
       
         private List<Shape>[] _pools;
@@ -19,7 +19,7 @@ namespace Shape_Data.ShapeFactory
         
         public Shape GetRandom () 
         {
-            return Get(Random.Range(0, prefabs.Length),Random.Range(0, materials.Length));
+            return Get(Random.Range(0, prefabs.Length));
         }
         public void Reclaim (Shape shapeToRecycle) 
         {
@@ -37,7 +37,7 @@ namespace Shape_Data.ShapeFactory
                 Destroy(shapeToRecycle.gameObject);
             }
         }
-        public Shape Get (int shapeId = 0, int materialId = 0) 
+        public Shape Get (int shapeId = 0) 
         {
             Shape instance;
             if (recycle) 
@@ -66,8 +66,6 @@ namespace Shape_Data.ShapeFactory
                 instance = Instantiate(prefabs[shapeId]);
                 instance.ShapeId = shapeId;
             }
-            
-            instance.SetMaterial(materials[materialId], materialId);
             return instance;
         }
         

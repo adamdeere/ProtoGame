@@ -7,5 +7,6 @@ namespace UtilityScripts
     public interface IKillable
     {
         void DoDamage();
+       // void DamagePlayer();
     }
 }

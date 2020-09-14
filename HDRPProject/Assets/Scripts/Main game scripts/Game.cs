@@ -127,7 +127,6 @@ namespace Main_game_scripts
         private void CreateObject()
         {
             var instance = _shapeFactory.GetRandom();
-            instance.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.25f, 1f, 1f, 1f));
             instance.transform.gameObject.SetActive(false);
             _objectsList.Add(instance);
         }
@@ -138,7 +137,6 @@ namespace Main_game_scripts
             foreach (var t in _objectsList)
             {
                 writer.Write(t.ShapeId);
-                writer.Write(t.MaterialId);
                 t.Save(writer);
             }
         }
@@ -155,8 +153,7 @@ namespace Main_game_scripts
             for (int i = 0; i < count; i++) 
             {
                 int shapeId = version > 0 ? reader.ReadInt() : 0;
-                int materialId = version > 0 ? reader.ReadInt() : 0;
-                Shape instance = _shapeFactory.Get(shapeId, materialId);
+                Shape instance = _shapeFactory.Get(shapeId);
                 instance.Load(reader);
                 _objectsList.Add(instance);
             }
