@@ -5,8 +5,9 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UtilityScripts;
 
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : MonoBehaviour, IKillable
 {
     private Vector3 initialPos;
     private Animator thisAnim;
@@ -250,5 +251,11 @@ public class PlayerScript : MonoBehaviour
     public void SpawnCube(InputAction.CallbackContext context)
     {
         cube.SpawnOne(transform.position + transform.up * -1f);
+    }
+
+    public void DoDamage()
+    {
+        //deal damage to john from outgoing collision
+        throw new NotImplementedException();
     }
 }

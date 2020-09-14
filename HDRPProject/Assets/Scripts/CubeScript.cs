@@ -18,7 +18,7 @@ public class CubeScript : MonoBehaviour
     {
         if (other.collider.gameObject.name == "John")
         {
-            StartCoroutine(CubeFall());
+           // StartCoroutine(CubeFall());
         }
         else if (other.collider.gameObject.name == "Resetter")
         {

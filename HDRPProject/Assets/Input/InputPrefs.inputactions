@@ -167,17 +167,6 @@
                 },
                 {
                     "name": "",
-                    "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
-                    "path": "<Pointer>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Touch",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "06a097b5-6338-4513-9120-5a9867a55cc2",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
@@ -250,90 +239,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "SpawnCube",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "KeyboardControlls",
-            "id": "52fe1c44-7e27-42e5-9e2d-90ecf007001a",
-            "actions": [
-                {
-                    "name": "Load",
-                    "type": "Button",
-                    "id": "d789c83b-dfff-4d69-bf1a-c55aeeb3b5f1",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Save",
-                    "type": "Button",
-                    "id": "9de38169-fd35-429b-8648-b4979f66e135",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Quit",
-                    "type": "Button",
-                    "id": "8b58aace-2e67-4f60-bd41-3fc3df7727d8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Create",
-                    "type": "Button",
-                    "id": "0459b767-888a-4035-acb0-7f6b5b0b6848",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "aa378927-5b49-49c7-9aab-1affa26e6db8",
-                    "path": "<Keyboard>/l",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad",
-                    "action": "Load",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a5410be7-85b1-4c25-8e4d-10bf12ab04c7",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Save",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "88c26cfd-6500-4f05-83bb-dac47808007c",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Quit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "50f62afd-845b-4a1f-8df7-c405c52c49bc",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Create",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
