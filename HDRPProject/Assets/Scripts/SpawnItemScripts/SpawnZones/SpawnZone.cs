@@ -8,19 +8,21 @@ namespace SpawnItemScripts.SpawnZones
     public abstract class SpawnZone : PersistantObject
     {
         public abstract Vector3 SpawnPoint { get; }
-        
+
+        public abstract Quaternion SpawnRotation { get; }
+
         private float _spawnProgress;
         
         
-        // public override void Save (GameDataWriter writer) 
-        // {
-        //     writer.Write(_spawnProgress);
-        // }
-        //
-        // public override void Load (GameDataReader reader) 
-        // {
-        //     _spawnProgress = reader.ReadFloat();
-        // }
+        public override void Save (GameDataWriter writer) 
+        {
+            writer.Write(_spawnProgress);
+        }
+        
+        public override void Load (GameDataReader reader) 
+        {
+            _spawnProgress = reader.ReadFloat();
+        }
 
         public virtual void SpawnShape()
         {

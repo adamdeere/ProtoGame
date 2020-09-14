@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using SpawnItemScripts.SpawnZones;
 using UnityEngine;
 
-public class GameLevel : MonoBehaviour
+namespace Main_game_scripts
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameLevel : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private SpawnZone spawnZone;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void Start () 
+        {
+            Game.Instance.SpawnZoneOfLevel = spawnZone;
+        }
     }
 }
