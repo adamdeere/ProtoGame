@@ -2017,7 +2017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d8e53be83ee44ccad79191b56c4510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  surfaceOnly: 0
+  surfaceOnly: 1
   spawnPoint: {fileID: 3687876413289220505}
 --- !u!1 &4813566328169750267
 GameObject:
