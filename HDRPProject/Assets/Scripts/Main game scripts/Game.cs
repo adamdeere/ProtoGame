@@ -6,6 +6,7 @@ using Shape_Data;
 using Shape_Data.ShapeFactory;
 using SpawnItemScripts.SpawnZones;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Main_game_scripts
@@ -16,7 +17,7 @@ namespace Main_game_scripts
         
         [SerializeField] private ShapeFactory _shapeFactory;
         [SerializeField] private PersistantStorage storage;
-
+        [FormerlySerializedAs("_shapeCount")] [SerializeField] private int shapeCount = 30;
         public SpawnZone SpawnZoneOfLevel { get; set; }
         
         public static Game Instance { get; private set; }
@@ -24,8 +25,8 @@ namespace Main_game_scripts
         private KeyBoardInputs _input;
         private List<Shape> _objectsList;
 
-        [SerializeField] private float CreationSpeed;
-        private float creationProgress;
+        [FormerlySerializedAs("CreationSpeed")] [SerializeField] private float creationSpeed;
+        private float _creationProgress;
 
 
         private void Awake()
@@ -43,20 +44,20 @@ namespace Main_game_scripts
         private void OnEnable()
         {
             _input.KeyBoard.Enable();
+            
         }
 
         private void Start()
-        {
-           
+        { 
+            InitiateShapes(shapeCount);
         }
-
         public void Update () 
         {
-            creationProgress += Time.deltaTime * CreationSpeed;
-            while (creationProgress >= 1f) 
+            _creationProgress += Time.deltaTime * creationSpeed;
+            while (_creationProgress >= 1f) 
             {
-                creationProgress -= 1f;
-                CreateObject();
+                _creationProgress -= 1f;
+                ActivateObject();
             }
         }
         private void OnDisable()
@@ -101,16 +102,33 @@ namespace Main_game_scripts
             storage.Save(this, SaveVersion);
         }
 
+        private Shape GetRandom ()
+        {
+            foreach (var t in _objectsList)
+            {
+                var index = (Random.Range(0, _objectsList.Count));
+                _objectsList[index].transform.gameObject.SetActive(true);
+                return _objectsList[index];
+            }
+            return null;
+        }
+        private void ActivateObject()
+        {
+            Shape instance = GetRandom();
+            if (instance != null)
+            {
+                var t = instance.transform;
+                var pos = SpawnZoneOfLevel.SpawnPoint;
+                //we will need to find a better method of doing this. we may need to find a half way point of the mesh and add it to the Y value
+                pos.y = 10.85f;
+                t.transform.localPosition = pos;
+            }
+        }
         private void CreateObject()
         {
-            Shape instance = _shapeFactory.GetRandom();
-            Transform t = instance.transform;
-            Vector3 pos = t.localPosition;
-            pos = SpawnZoneOfLevel.SpawnPoint;
-            pos.y = 10;
-            t.localPosition = pos;
-            t.rotation = SpawnZoneOfLevel.SpawnRotation;
+            var instance = _shapeFactory.GetRandom();
             instance.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.25f, 1f, 1f, 1f));
+            instance.transform.gameObject.SetActive(false);
             _objectsList.Add(instance);
         }
 
@@ -141,6 +159,14 @@ namespace Main_game_scripts
                 Shape instance = _shapeFactory.Get(shapeId, materialId);
                 instance.Load(reader);
                 _objectsList.Add(instance);
+            }
+        }
+
+        private void InitiateShapes(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                CreateObject();
             }
         }
         void DestroyShape () 
