@@ -8,7 +8,6 @@ namespace SpawnItemScripts.SpawnZones
 {
     public class CompositeSpawnZone : SpawnZone
     {
-       // [SerializeField] private SpawnZone[] spawnZones;
         [SerializeField] private bool sequential;
         [SerializeField] private bool overrideConfig;
         private int _nextSequentialIndex;

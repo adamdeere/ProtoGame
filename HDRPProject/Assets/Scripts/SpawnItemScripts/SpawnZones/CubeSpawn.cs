@@ -11,7 +11,7 @@ namespace SpawnItemScripts.SpawnZones
         [SerializeField] private Transform spawnPoint;
         public static event AddToSpawnZone AddSpawn;
 
-        private void OnEnable()
+        private void Start()
         {
             AddSpawn?.Invoke(this);
         }

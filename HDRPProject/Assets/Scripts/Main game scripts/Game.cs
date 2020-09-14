@@ -45,11 +45,6 @@ namespace Main_game_scripts
             _input.KeyBoard.Enable();
         }
 
-        private void Start()
-        {
-           
-        }
-
         public void Update () 
         {
             creationProgress += Time.deltaTime * CreationSpeed;
@@ -107,9 +102,9 @@ namespace Main_game_scripts
             Transform t = instance.transform;
             Vector3 pos = t.localPosition;
             pos = SpawnZoneOfLevel.SpawnPoint;
-            pos.y = 10;
+            //we will need to find a better method of doing this. we may need to find a half way point of the mesh and add it to the Y value
+            pos.y = 10.85f;
             t.localPosition = pos;
-            t.rotation = SpawnZoneOfLevel.SpawnRotation;
             instance.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.25f, 1f, 1f, 1f));
             _objectsList.Add(instance);
         }
