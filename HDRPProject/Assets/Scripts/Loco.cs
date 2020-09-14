@@ -1,35 +1,32 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using UtilityScripts;
 
 public class Loco : MonoBehaviour
 {
-    Animator anim;
-    NavMeshAgent agent;
-    Vector2 smoothDeltaPosition = Vector2.zero;
-    Vector2 velocity = Vector2.zero;
+    private Animator _anim;
+    private NavMeshAgent _agent;
+    private Vector2 _smoothDeltaPosition = Vector2.zero;
+    private Vector2 _velocity = Vector2.zero;
 
-    private GameObject John;
+    private GameObject _john;
     
-    public static event ReturnPlayerFunction getPlayer;
+    public static event ReturnPlayerFunction GETPlayer;
     // Start is called before the first frame update
     void Start()
     {
-        John = getPlayer?.Invoke();
-        anim = GetComponent<Animator> ();
-        agent = GetComponent<NavMeshAgent> ();
+        _john = GETPlayer?.Invoke();
+        _anim = GetComponent<Animator> ();
+        _agent = GetComponent<NavMeshAgent> ();
         // Don’t update position automatically
-        agent.updatePosition = false;
+        _agent.updatePosition = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        agent.destination = John.transform.position;
-        Vector3 worldDeltaPosition = agent.nextPosition - transform.position;
+        _agent.destination = _john.transform.position;
+        Vector3 worldDeltaPosition = _agent.nextPosition - transform.position;
 
         // Map 'worldDeltaPosition' to local space
         float dx = Vector3.Dot (transform.right, worldDeltaPosition);
@@ -38,18 +35,19 @@ public class Loco : MonoBehaviour
 
         // Low-pass filter the deltaMove
         float smooth = Mathf.Min(1.0f, Time.deltaTime/0.15f);
-        smoothDeltaPosition = Vector2.Lerp (smoothDeltaPosition, deltaPosition, smooth);
+        _smoothDeltaPosition = Vector2.Lerp (_smoothDeltaPosition, deltaPosition, smooth);
 
         // Update velocity if time advances
         if (Time.deltaTime > 1e-5f)
-            velocity = smoothDeltaPosition / Time.deltaTime;
+            _velocity = _smoothDeltaPosition / Time.deltaTime;
 
         // Update animation parameters
         //anim.SetFloat ("TurningSpeed", velocity.x);
-        anim.SetFloat ("Speed", velocity.y);
+        _anim.SetFloat ("Speed", _velocity.y);
     }
-    void OnAnimatorMove(){
-        transform.rotation = anim.rootRotation;
-        transform.position = agent.nextPosition;
+    void OnAnimatorMove()
+    {
+        transform.rotation = _anim.rootRotation;
+        transform.position = _agent.nextPosition;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UtilityScripts;
 
@@ -44,6 +45,9 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
     float probeDistance = 1f;
 
 
+    [FormerlySerializedAs("_LayerMask")] [SerializeField] private LayerMask layerMask;
+    [SerializeField] private Transform point;
+    public float health = 100;
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -52,7 +56,12 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
         offsetCamera = _freeLookComponent.GetComponent<CinemachineCameraOffset>();
         initialPos = rb.position;
         OnValidate();
-        Loco.getPlayer += GetPlayer;
+        Loco.GETPlayer += GetPlayer;
+    }
+
+    private void OnDisable()
+    {
+        Loco.GETPlayer -= GetPlayer;
     }
 
     private GameObject GetPlayer()
@@ -256,10 +265,23 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
         cube.SpawnOne(transform.position + transform.up * -1f);
     }
 
-    public void DoDamage()
+    public void FireGun(InputAction.CallbackContext context)
     {
-      //do game logic here
-      //like death, loss of health 
-      //things like that
+        //this where i fire fire raycast into cenrttal point i
+        //if hit get interface comp 
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(point.transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+        {
+            IKillableZombie zombieKill = hit.collider.gameObject.GetComponent<IKillableZombie>();
+            zombieKill?.DoDamage();
+        }
+    }
+    public void DoDamage(float health)
+    {
+        this.health -= health;
+        //do game logic here
+        //like death, loss of health 
+        //things like that
     }
 }

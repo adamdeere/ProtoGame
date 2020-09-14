@@ -13,6 +13,6 @@ namespace UtilityScripts
     
     public interface IKillablePlayer
     {
-        void DoDamage();
+        void DoDamage(float health);
     }
 }

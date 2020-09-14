@@ -8,6 +8,7 @@ namespace Shape_Data
 {
     public class Shape : PersistantObject, IKillableZombie
     {
+        public int ZombieHealth = 100;
        public int MaterialId { get; private set; } = int.MinValue;
 
         public int ShapeId 
@@ -43,7 +44,7 @@ namespace Shape_Data
         private void OnCollisionEnter(Collision other)
         {
             IKillablePlayer kill = other.collider.gameObject.GetComponent<IKillablePlayer>();
-            kill?.DoDamage();
+            kill?.DoDamage(10);
         }
 
         public void DoDamage()

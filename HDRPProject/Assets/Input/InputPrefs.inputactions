@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "FireGun",
+                    "type": "Button",
+                    "id": "c5a6e3ca-3b23-49f6-a557-6da9c32a70a0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -239,6 +247,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "SpawnCube",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f4c39e62-a27b-4e85-88e3-eed8a7251337",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "FireGun",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
