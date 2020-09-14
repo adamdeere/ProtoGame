@@ -86,9 +86,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa48179d72064eceac632791468f720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shapeFactory: {fileID: 0}
+  _shapeFactory: {fileID: 11400000, guid: 4f381773b82c84be4b92a4e6358a8a49, type: 2}
   storage: {fileID: 3272632623583916660}
-  CreationSpeed: 0
+  CreationSpeed: 0.5
 --- !u!1 &3692023567598689924
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57801577a69a74677a2f106759ceef28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnZones: []
   sequential: 0
   overrideConfig: 0
 --- !u!1 &8208483544584694975
@@ -178,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdcd3685aa6034e11932b5c46a80b4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnZone: {fileID: 0}
+  spawnZone: {fileID: 951729376119060846}
 --- !u!1 &8208483544709749977
 GameObject:
   m_ObjectHideFlags: 0
