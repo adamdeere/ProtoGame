@@ -4,9 +4,13 @@ namespace UtilityScripts
 {
     public delegate void AddToSpawnZone(SpawnZone zone);
     
-    public interface IKillable
+    public interface IKillableZombie
     {
         void DoDamage();
-       // void DamagePlayer();
+    }
+    
+    public interface IKillablePlayer
+    {
+        void DoDamage();
     }
 }

@@ -130,7 +130,6 @@ namespace Main_game_scripts
             instance.transform.gameObject.SetActive(false);
             _objectsList.Add(instance);
         }
-
         public override void Save(GameDataWriter writer)
         {
             writer.Write(_objectsList.Count);
@@ -140,7 +139,6 @@ namespace Main_game_scripts
                 t.Save(writer);
             }
         }
-        
         public override void Load (GameDataReader reader) 
         {
             int version = reader.Version;

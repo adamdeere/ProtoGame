@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UtilityScripts;
 
-public class PlayerScript : MonoBehaviour, IKillable
+public class PlayerScript : MonoBehaviour, IKillablePlayer
 {
     private Vector3 initialPos;
     private Animator thisAnim;
@@ -91,7 +91,7 @@ public class PlayerScript : MonoBehaviour, IKillable
         {
             rb.position = initialPos;
         }
-        IKillable kill = collision.collider.gameObject.GetComponent<IKillable>();
+        IKillableZombie kill = collision.collider.gameObject.GetComponent<IKillableZombie>();
         kill?.DoDamage();
         EvaluateCollision(collision);
     }
@@ -257,8 +257,8 @@ public class PlayerScript : MonoBehaviour, IKillable
 
     public void DoDamage()
     {
-        //deal damage to john from outgoing collision
-       // throw new NotImplementedException();
-       Debug.Log("damage done to player");
+      //do game logic here
+      //like death, loss of health 
+      //things like that
     }
 }
