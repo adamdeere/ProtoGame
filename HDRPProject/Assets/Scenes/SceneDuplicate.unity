@@ -2248,7 +2248,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh327652
+  m_Name: pb_Mesh353146
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2813,13 +2813,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427924458}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.3019224, y: -0.24585056, z: 0.08089985, w: 0.9175269}
   m_LocalPosition: {x: 6, y: 4, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 36.429, y: -30.000002, z: 0}
 --- !u!114 &1427924461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3328,7 +3328,7 @@ PrefabInstance:
     - target: {fileID: 951729376119060846, guid: 7f11efa2904454808b3705f248118f32,
         type: 3}
       propertyPath: overrideConfig
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1097078710198707723, guid: 7f11efa2904454808b3705f248118f32,
         type: 3}
@@ -3744,7 +3744,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149347973242}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.9987737, z: -0, w: 0.049509294}
   m_LocalPosition: {x: 13.99, y: 10, z: 13.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3760,7 +3760,7 @@ Transform:
   - {fileID: 470720626}
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 174.324, z: 0}
 --- !u!1 &602609423450692517
 GameObject:
   m_ObjectHideFlags: 0
@@ -5979,7 +5979,7 @@ Animator:
   m_GameObject: {fileID: 919132149347973242}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9f2127023a2cf4581a0ed84449b13442, type: 3}
-  m_Controller: {fileID: 9100000, guid: db05e149b3f374a35b2da7085925f146, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5e89ba0e85ef94c81bd1fbe855305072, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
