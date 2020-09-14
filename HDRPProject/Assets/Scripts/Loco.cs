@@ -10,9 +10,12 @@ public class Loco : MonoBehaviour
     NavMeshAgent agent;
     Vector2 smoothDeltaPosition = Vector2.zero;
     Vector2 velocity = Vector2.zero;
+
+    private GameObject John;
     // Start is called before the first frame update
     void Start()
     {
+        John = GameObject.Find("John");
         anim = GetComponent<Animator> ();
         agent = GetComponent<NavMeshAgent> ();
         // Don’t update position automatically
@@ -22,6 +25,7 @@ public class Loco : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        agent.destination = John.transform.position;
         Vector3 worldDeltaPosition = agent.nextPosition - transform.position;
 
         // Map 'worldDeltaPosition' to local space

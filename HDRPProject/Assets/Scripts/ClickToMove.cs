@@ -11,13 +11,10 @@ public class ClickToMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        Ethan = GameObject.Find("Ethan");
     }
 
     // Update is called once per frame
     void Update()
     {
-        agent.destination = Ethan.transform.position;
     }
 }
