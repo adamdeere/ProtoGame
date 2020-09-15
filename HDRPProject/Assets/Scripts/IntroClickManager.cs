@@ -18,7 +18,11 @@ public class IntroClickManager : MonoBehaviour
    {
       Debug.Log("load button pressed");
    }
-   
+
+   public void LoadNext(string nextLevelName)
+   {
+      StartCoroutine(LoadNextScene(nextLevelName));
+   }
    IEnumerator SceneSwitch()
    {
       AsyncOperation loadOne = SceneManager.LoadSceneAsync("MainGameSceneDup", LoadSceneMode.Additive);
@@ -31,6 +35,15 @@ public class IntroClickManager : MonoBehaviour
       
       AsyncOperation unload =  SceneManager.UnloadSceneAsync(_sceneName);
       //yield return unload;
+      
+      SceneManager.UnloadSceneAsync(_sceneName);
+   }
+   
+   IEnumerator LoadNextScene(string level)
+   {
+      
+      AsyncOperation loadTwo = SceneManager.LoadSceneAsync(level, LoadSceneMode.Additive);
+      yield return loadTwo;
       
       SceneManager.UnloadSceneAsync(_sceneName);
    }

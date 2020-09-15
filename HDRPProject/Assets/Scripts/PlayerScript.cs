@@ -44,13 +44,14 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
     [SerializeField, Min(0f)]
     float probeDistance = 1f;
 
+    private bool _cutscene = false;
 
     [FormerlySerializedAs("_LayerMask")] [SerializeField] private LayerMask layerMask;
     [SerializeField] private Transform point;
     public float health = 100;
     private void Awake()
     {
-       // mainCamera = Camera.main;
+      
         thisAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         offsetCamera = _freeLookComponent.GetComponent<CinemachineCameraOffset>();
@@ -115,17 +116,20 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
 
     public void JumpPhysics()
     {
-        if (OnGround|| jumpPhase < maxAirJumps) 
+        if (!_cutscene)
         {
-            stepsSinceLastJump = 0;
-            jumpPhase += 1;
-            float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
-            float alignedSpeed = Vector3.Dot(velocity, contactNormal);
-            if (alignedSpeed > 0f) 
+            if (OnGround|| jumpPhase < maxAirJumps) 
             {
-                jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
+                stepsSinceLastJump = 0;
+                jumpPhase += 1;
+                float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+                float alignedSpeed = Vector3.Dot(velocity, contactNormal);
+                if (alignedSpeed > 0f) 
+                {
+                    jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
+                }
+                velocity += contactNormal * jumpSpeed;
             }
-            velocity += contactNormal * jumpSpeed;
         }
     }
 
@@ -213,8 +217,10 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
     
     public void Move(InputAction.CallbackContext context)
     {
-        vec2 = context.ReadValue<Vector2>();
-        //Debug.Log(vec2);
+        if (!_cutscene)
+            vec2 = context.ReadValue<Vector2>();
+        else
+            vec2 = Vector2.zero;
     }
 
     public void Aiming(InputAction.CallbackContext context)
@@ -283,5 +289,10 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
         //do game logic here
         //like death, loss of health 
         //things like that
+    }
+
+    public void MidCutScene(bool inCutScene)
+    {
+        _cutscene = inCutScene;
     }
 }

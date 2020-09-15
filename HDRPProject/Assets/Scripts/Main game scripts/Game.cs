@@ -59,7 +59,7 @@ namespace Main_game_scripts
             while (_creationProgress >= 1f) 
             {
                 _creationProgress -= 1f;
-                ActivateObject();
+                //ActivateObject();
             }
         }
         private void OnDisable()
