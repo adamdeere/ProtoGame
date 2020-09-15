@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UtilityScripts;
 
-public class PlayerScript : MonoBehaviour, IKillable
+public class PlayerScript : MonoBehaviour, IKillablePlayer
 {
     private Vector3 initialPos;
     private Animator thisAnim;
@@ -47,6 +45,9 @@ public class PlayerScript : MonoBehaviour, IKillable
     float probeDistance = 1f;
 
 
+    [FormerlySerializedAs("_LayerMask")] [SerializeField] private LayerMask layerMask;
+    [SerializeField] private Transform point;
+    public float health = 100;
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -55,9 +56,18 @@ public class PlayerScript : MonoBehaviour, IKillable
         offsetCamera = _freeLookComponent.GetComponent<CinemachineCameraOffset>();
         initialPos = rb.position;
         OnValidate();
+        Loco.GETPlayer += GetPlayer;
     }
-    
 
+    private void OnDisable()
+    {
+        Loco.GETPlayer -= GetPlayer;
+    }
+
+    private GameObject GetPlayer()
+    {
+        return gameObject;
+    }
     void Update ()
     {
         Vector2 playerInput;
@@ -91,6 +101,8 @@ public class PlayerScript : MonoBehaviour, IKillable
         {
             rb.position = initialPos;
         }
+        IKillableZombie kill = collision.collider.gameObject.GetComponent<IKillableZombie>();
+        kill?.DoDamage();
         EvaluateCollision(collision);
     }
     void OnCollisionStay (Collision collision) {
@@ -253,9 +265,23 @@ public class PlayerScript : MonoBehaviour, IKillable
         cube.SpawnOne(transform.position + transform.up * -1f);
     }
 
-    public void DoDamage()
+    public void FireGun(InputAction.CallbackContext context)
     {
-        //deal damage to john from outgoing collision
-        throw new NotImplementedException();
+        //this where i fire fire raycast into cenrttal point i
+        //if hit get interface comp 
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(point.transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+        {
+            IKillableZombie zombieKill = hit.collider.gameObject.GetComponent<IKillableZombie>();
+            zombieKill?.DoDamage();
+        }
+    }
+    public void DoDamage(float health)
+    {
+        this.health -= health;
+        //do game logic here
+        //like death, loss of health 
+        //things like that
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using SaveSystemScripts;
 using Shape_Data;
 using Shape_Data.ShapeFactory;
@@ -18,6 +16,7 @@ namespace Main_game_scripts
         [SerializeField] private ShapeFactory _shapeFactory;
         [SerializeField] private PersistantStorage storage;
         [FormerlySerializedAs("_shapeCount")] [SerializeField] private int shapeCount = 30;
+        [FormerlySerializedAs("_resetPosition")] [SerializeField] private Transform resetPosition; 
         public SpawnZone SpawnZoneOfLevel { get; set; }
         
         public static Game Instance { get; private set; }
@@ -28,7 +27,10 @@ namespace Main_game_scripts
         [FormerlySerializedAs("CreationSpeed")] [SerializeField] private float creationSpeed;
         private float _creationProgress;
 
-
+        public Transform ResetPos()
+        {
+            return resetPosition;
+        }
         private void Awake()
         {
             Instance = this;
@@ -127,22 +129,20 @@ namespace Main_game_scripts
         private void CreateObject()
         {
             var instance = _shapeFactory.GetRandom();
-            instance.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.25f, 1f, 1f, 1f));
-            instance.transform.gameObject.SetActive(false);
+            var t = instance.transform;
+            t.transform.localPosition = resetPosition.transform.localPosition;
+            t.gameObject.SetActive(false);
             _objectsList.Add(instance);
         }
-
         public override void Save(GameDataWriter writer)
         {
             writer.Write(_objectsList.Count);
             foreach (var t in _objectsList)
             {
                 writer.Write(t.ShapeId);
-                writer.Write(t.MaterialId);
                 t.Save(writer);
             }
         }
-        
         public override void Load (GameDataReader reader) 
         {
             int version = reader.Version;
@@ -155,8 +155,7 @@ namespace Main_game_scripts
             for (int i = 0; i < count; i++) 
             {
                 int shapeId = version > 0 ? reader.ReadInt() : 0;
-                int materialId = version > 0 ? reader.ReadInt() : 0;
-                Shape instance = _shapeFactory.Get(shapeId, materialId);
+                Shape instance = _shapeFactory.Get(shapeId);
                 instance.Load(reader);
                 _objectsList.Add(instance);
             }
