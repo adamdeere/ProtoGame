@@ -178,6 +178,17 @@
                 },
                 {
                     "name": "",
+                    "id": "3aa04842-e595-4404-9a0b-d51af305c43e",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "6d83f931-f6b3-40b2-8c5e-4b8166f2f70f",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
