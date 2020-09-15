@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
     private readonly Vector3 originalOffset = new Vector3(-0.71f,-0.21f,0.33f);
     public SpawnableObjects cube;
     private Quaternion newDirection;
-    private Camera mainCamera;
+    [SerializeField] private Camera mainCamera;
     private Vector2 vec2;
     private Rigidbody rb;
     public Image aImage;
@@ -50,7 +50,7 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
     public float health = 100;
     private void Awake()
     {
-        mainCamera = Camera.main;
+       // mainCamera = Camera.main;
         thisAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         offsetCamera = _freeLookComponent.GetComponent<CinemachineCameraOffset>();

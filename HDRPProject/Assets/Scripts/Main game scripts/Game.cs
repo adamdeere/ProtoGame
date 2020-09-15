@@ -109,8 +109,11 @@ namespace Main_game_scripts
             foreach (var t in _objectsList)
             {
                 var index = (Random.Range(0, _objectsList.Count));
-                _objectsList[index].transform.gameObject.SetActive(true);
-                return _objectsList[index];
+                if (!t.gameObject.activeSelf)
+                {
+                    _objectsList[index].transform.gameObject.SetActive(true);
+                    return _objectsList[index];
+                }
             }
             return null;
         }
