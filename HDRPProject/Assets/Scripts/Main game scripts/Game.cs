@@ -122,7 +122,7 @@ namespace Main_game_scripts
                 var t = instance.transform;
                 var pos = SpawnZoneOfLevel.SpawnPoint;
                 //we will need to find a better method of doing this. we may need to find a half way point of the mesh and add it to the Y value
-                pos.y = 10.85f;
+                pos.y = 10f;
                 t.transform.localPosition = pos;
             }
         }
