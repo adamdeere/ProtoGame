@@ -13,6 +13,7 @@ public class NextSceneScript : MonoBehaviour
     [SerializeField] private Material openMatt;
     [SerializeField] private GameObject doorObject;
     [SerializeField] private GameObject camObject;
+    [SerializeField] private GameObject johnObject;
 
     private BoxCollider _exitBox;
 
@@ -61,10 +62,12 @@ public class NextSceneScript : MonoBehaviour
     public void AnimationFinished()
     {
         camObject.SetActive(false);
+        johnObject.SetActive(false);
     }
 
     public void AnimationStatered()
     {
         camObject.SetActive(true);
+        johnObject.SetActive(true);
     }
 }
