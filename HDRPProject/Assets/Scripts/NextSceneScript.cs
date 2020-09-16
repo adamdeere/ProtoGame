@@ -60,11 +60,11 @@ public class NextSceneScript : MonoBehaviour
 
     public void AnimationFinished()
     {
-        camObject.SetActive(true);
+        camObject.SetActive(false);
     }
 
     public void AnimationStatered()
     {
-        
+        camObject.SetActive(true);
     }
 }
