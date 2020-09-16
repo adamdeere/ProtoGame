@@ -14,6 +14,7 @@ public class NextSceneScript : MonoBehaviour
     [SerializeField] private GameObject doorObject;
     [SerializeField] private GameObject camObject;
     [SerializeField] private GameObject johnObject;
+    [SerializeField] private PlayMusic playMusicScript;
 
     private BoxCollider _exitBox;
 
@@ -31,6 +32,7 @@ public class NextSceneScript : MonoBehaviour
         ToggleObjects(false);
         _exitBox.enabled = false;
         PlayerScript.IncreaseKillCount += IncreaseKillCount;
+        playMusicScript.PlaySoundMusic("level");
     }
 
     private void OnDestroy()
@@ -45,6 +47,7 @@ public class NextSceneScript : MonoBehaviour
         var player = other.gameObject.GetComponent<IPlayer>();
         if (player == null) return;
         
+        playMusicScript.StopSoundMusic("level");
         ToggleObjects(true);
         TogglePlayerOff?.Invoke();
         director.Play();
