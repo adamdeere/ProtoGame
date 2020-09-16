@@ -289,9 +289,10 @@ public class PlayerScript : MonoBehaviour, IPlayer
     {
         //if hit get interface comp 
         // Does the ray intersect any objects excluding the player layer
-        soundEffectScript.PlaySoundEffectFunction("gun");
+      
         if (context.started)
         {
+            soundEffectScript.PlaySoundEffectFunction("gun");
             if (Physics.Raycast(point.transform.position, transform.TransformDirection(Vector3.forward), out var hit,
                 Mathf.Infinity, layerMask))
             {

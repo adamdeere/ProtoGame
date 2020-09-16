@@ -26,6 +26,14 @@ public class AudioFactory : MonoBehaviour
         PopulateSoundArray(levelMusic);
     }
 
+    private void OnDestroy()
+    {
+        PlaySoundEffect.OnPlaySoundEffect -= PlaySound;
+        PlaySoundEffect.OnStopSoundEffect -= StopSound;
+        PlayMusic.OnPlayMusic -= PlayMusicFunction;
+        PlayMusic.OnStopMusic -= StopMusicFunction;
+    }
+
     private void PlaySound(string soundName)
     {
         var s = Array.Find(soundEffects, sound => sound.name == soundName);
