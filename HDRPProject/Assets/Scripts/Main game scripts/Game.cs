@@ -31,6 +31,8 @@ namespace Main_game_scripts
 
         private bool _levelActive = true;
 
+        [SerializeField] private GameObject johnObject;
+
         public Transform ResetPos()
         {
             return resetPosition;
@@ -51,6 +53,8 @@ namespace Main_game_scripts
         {
             _input.KeyBoard.Enable();
             NextSceneScript.ResetLevel += ResetGameLevel;
+            NextSceneScript.ReposPlayer += RepositionPlayerObject;
+            NextSceneScript.TogglePlayerOff += TogglePlayer;
         }
 
         private void Start()
@@ -82,8 +86,15 @@ namespace Main_game_scripts
             // ReSharper disable once EventUnsubscriptionViaAnonymousDelegate
             _input.KeyBoard.Quit.started -= context => QuitGame();
             NextSceneScript.ResetLevel -= ResetGameLevel;
+            NextSceneScript.ReposPlayer -= RepositionPlayerObject;
+            NextSceneScript.TogglePlayerOff -= TogglePlayer;
         }
 
+        private void RepositionPlayerObject(Transform trans)
+        {
+            johnObject.SetActive(true);
+            johnObject.transform.position = trans.position;
+        }
         private void ResetGameLevel(bool active)
         {
             _levelActive = active;
@@ -100,6 +111,10 @@ namespace Main_game_scripts
             NewGame();
         }
 
+        private void TogglePlayer()
+        {
+            johnObject.SetActive(false);
+        }
         private void NewGame()
         {
             foreach (var t in _objectsList)

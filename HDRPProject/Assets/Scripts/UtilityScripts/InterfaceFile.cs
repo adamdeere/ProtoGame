@@ -8,7 +8,10 @@ namespace UtilityScripts
 
     public delegate void IncreaseTheKill();
 
-    public delegate void ResetTheLevel(bool active); 
+    public delegate void ResetTheLevel(bool active);
+
+    public delegate void RepositionPlayer(Transform trans);
+    public delegate void TurnPlayerOff();
 
     public interface IZombie
     {
