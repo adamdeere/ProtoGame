@@ -10,12 +10,12 @@ namespace UtilityScripts
 
     public delegate void ResetTheLevel(bool active); 
 
-    public interface IKillableZombie
+    public interface IZombie
     {
         void DoDamage();
     }
     
-    public interface IKillablePlayer
+    public interface IPlayer
     {
         void DoDamage(float health);
     }

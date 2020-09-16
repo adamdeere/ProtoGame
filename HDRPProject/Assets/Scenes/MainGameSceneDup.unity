@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 414.6683, g: 327.41327, b: 344.58142, a: 1}
+  m_IndirectSpecularColor: {r: 415.51675, g: 327.10715, b: 342.37823, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -774,7 +774,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564568870}
-  m_LocalRotation: {x: 0.07207838, y: 0.6930901, z: -0.06998557, w: 0.7138158}
+  m_LocalRotation: {x: 0.07207836, y: 0.69309, z: -0.069985546, w: 0.71381587}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1188,7 +1188,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999885681}
-  m_LocalRotation: {x: 0.085016154, y: 0.69170636, z: -0.08254771, w: 0.71239066}
+  m_LocalRotation: {x: 0.08501616, y: 0.6917063, z: -0.0825477, w: 0.7123907}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1885,7 +1885,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391022406}
-  m_LocalRotation: {x: 0.08501616, y: 0.6917064, z: -0.08254772, w: 0.71239066}
+  m_LocalRotation: {x: 0.085016176, y: 0.6917063, z: -0.0825477, w: 0.7123908}
   m_LocalPosition: {x: 17.001303, y: 12.5, z: 19.91163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2456,7 +2456,7 @@ MonoBehaviour:
   _freeLookComponent: {fileID: 557366323}
   cube: {fileID: 11400000, guid: 0a0a2aa1ea74b4cb8838b367e077e676, type: 2}
   mainCamera: {fileID: 1391022408}
-  aImage: {fileID: 0}
+  aImage: {fileID: 1909967666}
   turnSpeed: 15
   LookSpeed: 0.5
   InvertY: 1
@@ -2614,7 +2614,7 @@ PrefabInstance:
     - target: {fileID: 1097078710198707723, guid: 7f11efa2904454808b3705f248118f32,
         type: 3}
       propertyPath: creationSpeed
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5953505469995264451, guid: 7f11efa2904454808b3705f248118f32,
         type: 3}

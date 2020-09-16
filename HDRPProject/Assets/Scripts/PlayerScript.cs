@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UtilityScripts;
 
-public class PlayerScript : MonoBehaviour, IKillablePlayer
+public class PlayerScript : MonoBehaviour, IPlayer
 {
     private Vector3 initialPos;
     private Animator thisAnim;
@@ -104,7 +104,7 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
         {
             rb.position = initialPos;
         }
-        IKillableZombie kill = collision.collider.gameObject.GetComponent<IKillableZombie>();
+        IZombie kill = collision.collider.gameObject.GetComponent<IZombie>();
         kill?.DoDamage();
         EvaluateCollision(collision);
     }
@@ -279,7 +279,7 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(point.transform.position, transform.TransformDirection(Vector3.forward), out var hit, Mathf.Infinity, layerMask))
         {
-            var zombieKill = hit.collider.gameObject.GetComponent<IKillableZombie>();
+            var zombieKill = hit.collider.gameObject.GetComponent<IZombie>();
             zombieKill?.DoDamage();
             IncreaseKillCount?.Invoke();
         }

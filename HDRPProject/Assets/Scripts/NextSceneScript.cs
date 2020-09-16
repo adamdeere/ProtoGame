@@ -1,44 +1,58 @@
 ﻿using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Serialization;
 using UtilityScripts;
 
 public class NextSceneScript : MonoBehaviour
 {
-    [SerializeField] private PlayableDirector _director;
+    [FormerlySerializedAs("_director")] [SerializeField] private PlayableDirector director;
 
-    [SerializeField] private int killCount;
-    [SerializeField] private int killLimitForLevel;
+    private int _killCount;
+    [SerializeField] public int killLimitForLevel;
+    [SerializeField] public bool isEntryDoor;
+    [SerializeField] private Material openMatt;
+    [SerializeField] private GameObject doorObject;
 
-    [SerializeField] private BoxCollider exitBox;
+    private BoxCollider _exitBox;
 
     public static event ResetTheLevel ResetLevel;
     // Start is called before the first frame update
     private void Start()
     {
-        exitBox.enabled = false;
+        _exitBox = GetComponent<BoxCollider>();
+
+        if (!isEntryDoor) return;
+        
+        _exitBox.enabled = false;
         PlayerScript.IncreaseKillCount += IncreaseKillCount;
     }
 
     private void OnDestroy()
     {
-        PlayerScript.IncreaseKillCount -= IncreaseKillCount;
+        if (isEntryDoor)
+            PlayerScript.IncreaseKillCount -= IncreaseKillCount;
+      
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        var player = other.gameObject.GetComponent<IPlayer>();
+        if (player != null)
         {
-            _director.Play();
+            director.Play();
         }
     }
-
+    
     private void IncreaseKillCount()
     {
-        killCount++;
-        if (killCount >= killLimitForLevel)
-        {
-            exitBox.enabled = true;
-            ResetLevel?.Invoke(false);
-        }
+        if (!isEntryDoor) return;
+        _killCount++;
+        
+        if (_killCount < killLimitForLevel) return;
+        
+        _exitBox.enabled = true;
+        ResetLevel?.Invoke(false);
+        doorObject.GetComponent<MeshRenderer>().material = openMatt;
+
     }
 }
