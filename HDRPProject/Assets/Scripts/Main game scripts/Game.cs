@@ -89,7 +89,7 @@ namespace Main_game_scripts
             _levelActive = active;
             foreach (var t in _objectsList)
             {
-                t.DoDamage();
+                t.DoDamage(100, out bool isDead);
             }
         }
         /// <summary>
