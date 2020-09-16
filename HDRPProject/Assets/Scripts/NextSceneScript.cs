@@ -12,6 +12,7 @@ public class NextSceneScript : MonoBehaviour
     [SerializeField] public bool isEntryDoor;
     [SerializeField] private Material openMatt;
     [SerializeField] private GameObject doorObject;
+    [SerializeField] private GameObject camObject;
 
     private BoxCollider _exitBox;
 
@@ -40,6 +41,7 @@ public class NextSceneScript : MonoBehaviour
         if (player != null)
         {
             director.Play();
+            camObject.SetActive(true);
         }
     }
     
@@ -54,5 +56,15 @@ public class NextSceneScript : MonoBehaviour
         ResetLevel?.Invoke(false);
         doorObject.GetComponent<MeshRenderer>().material = openMatt;
 
+    }
+
+    public void AnimationFinished()
+    {
+        camObject.SetActive(true);
+    }
+
+    public void AnimationStatered()
+    {
+        
     }
 }
