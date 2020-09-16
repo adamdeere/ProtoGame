@@ -43,7 +43,7 @@ namespace Shape_Data
         }
         private void OnCollisionEnter(Collision other)
         {
-            IKillablePlayer kill = other.collider.gameObject.GetComponent<IKillablePlayer>();
+            var kill = other.collider.gameObject.GetComponent<IKillablePlayer>();
             kill?.DoDamage(10);
         }
 

@@ -49,6 +49,8 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
     [FormerlySerializedAs("_LayerMask")] [SerializeField] private LayerMask layerMask;
     [SerializeField] private Transform point;
     public float health = 100;
+
+    public static event IncreaseTheKill IncreaseKillCount;
     private void Awake()
     {
       
@@ -273,14 +275,13 @@ public class PlayerScript : MonoBehaviour, IKillablePlayer
 
     public void FireGun(InputAction.CallbackContext context)
     {
-        //this where i fire fire raycast into cenrttal point i
         //if hit get interface comp 
-        RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(point.transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(point.transform.position, transform.TransformDirection(Vector3.forward), out var hit, Mathf.Infinity, layerMask))
         {
-            IKillableZombie zombieKill = hit.collider.gameObject.GetComponent<IKillableZombie>();
+            var zombieKill = hit.collider.gameObject.GetComponent<IKillableZombie>();
             zombieKill?.DoDamage();
+            IncreaseKillCount?.Invoke();
         }
     }
     public void DoDamage(float health)

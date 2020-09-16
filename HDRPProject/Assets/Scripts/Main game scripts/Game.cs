@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SaveSystemScripts;
 using Shape_Data;
 using Shape_Data.ShapeFactory;
 using SpawnItemScripts.SpawnZones;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UtilityScripts;
 using Random = UnityEngine.Random;
 
 namespace Main_game_scripts
@@ -27,6 +29,8 @@ namespace Main_game_scripts
         [FormerlySerializedAs("CreationSpeed")] [SerializeField] private float creationSpeed;
         private float _creationProgress;
 
+        private bool _levelActive = true;
+
         public Transform ResetPos()
         {
             return resetPosition;
@@ -46,7 +50,7 @@ namespace Main_game_scripts
         private void OnEnable()
         {
             _input.KeyBoard.Enable();
-            
+            NextSceneScript.ResetLevel += ResetGameLevel;
         }
 
         private void Start()
@@ -59,9 +63,13 @@ namespace Main_game_scripts
             while (_creationProgress >= 1f) 
             {
                 _creationProgress -= 1f;
-                //ActivateObject();
+                if (_levelActive)
+                {
+                    ActivateObject();
+                }
             }
         }
+
         private void OnDisable()
         {
             _input.KeyBoard.Disable();
@@ -73,8 +81,17 @@ namespace Main_game_scripts
             _input.KeyBoard.Save.started -= context => SaveGame();
             // ReSharper disable once EventUnsubscriptionViaAnonymousDelegate
             _input.KeyBoard.Quit.started -= context => QuitGame();
+            NextSceneScript.ResetLevel -= ResetGameLevel;
         }
 
+        private void ResetGameLevel(bool active)
+        {
+            _levelActive = active;
+            foreach (var t in _objectsList)
+            {
+                t.DoDamage();
+            }
+        }
         /// <summary>
         /// quit game is linked to a keyboard, new game acts as a clear scene
         /// </summary>

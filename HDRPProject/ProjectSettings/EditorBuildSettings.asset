@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainGameSceneDup.unity
     guid: 54e14459966a849719e6c56ffc078f6f
   - enabled: 1
-    path: Assets/Scenes/FirstLevel.unity
-    guid: 64b65db6356b94e0185fd8ea6949018c
-  - enabled: 1
     path: Assets/Scenes/FirstLevelReal.unity
     guid: 5d7698b623667438ab869f9e4c1fbc61
   - enabled: 1
