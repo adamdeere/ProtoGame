@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -53,7 +54,6 @@ public class PlayerScript : MonoBehaviour, IPlayer
     public static event IncreaseTheKill IncreaseKillCount;
     private void Awake()
     {
-      
         thisAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         offsetCamera = _freeLookComponent.GetComponent<CinemachineCameraOffset>();
@@ -61,6 +61,7 @@ public class PlayerScript : MonoBehaviour, IPlayer
         OnValidate();
         Loco.GETPlayer += GetPlayer;
     }
+    
 
     private void OnDisable()
     {
@@ -105,7 +106,7 @@ public class PlayerScript : MonoBehaviour, IPlayer
             rb.position = initialPos;
         }
         IZombie kill = collision.collider.gameObject.GetComponent<IZombie>();
-        kill?.DoDamage();
+        kill?.DoDamage(100, out bool isDead);
         EvaluateCollision(collision);
     }
     void OnCollisionStay (Collision collision) {
@@ -242,22 +243,28 @@ public class PlayerScript : MonoBehaviour, IPlayer
     
     public void Jump(InputAction.CallbackContext context)
     {
-        desiredJump = true;
+        if (context.started)
+        {
+            desiredJump = true;
+        }
     }
 
     public void HostilitySwitcher(InputAction.CallbackContext context)
     {
-        if (thisAnim.GetBool("Hostility"))
+        if (context.started)
         {
-            thisAnim.SetBool("Hostility",false);
-            offsetCamera.m_Offset = Vector3.zero;
-            aImage.enabled = false;
-        }
-        else
-        {
-            thisAnim.SetBool("Hostility",true);
-            offsetCamera.m_Offset = originalOffset;
-            aImage.enabled = true;
+            if (thisAnim.GetBool("Hostility"))
+            {
+                thisAnim.SetBool("Hostility", false);
+                offsetCamera.m_Offset = Vector3.zero;
+                aImage.enabled = false;
+            }
+            else
+            {
+                thisAnim.SetBool("Hostility", true);
+                offsetCamera.m_Offset = originalOffset;
+                aImage.enabled = true;
+            }
         }
     }
     
@@ -270,18 +277,29 @@ public class PlayerScript : MonoBehaviour, IPlayer
 
     public void SpawnCube(InputAction.CallbackContext context)
     {
-        cube.SpawnOne(transform.position + transform.up * -1f);
+        if (context.started)
+        {
+            cube.SpawnOne(transform.position + transform.up * -1f);
+        }
     }
 
     public void FireGun(InputAction.CallbackContext context)
     {
         //if hit get interface comp 
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(point.transform.position, transform.TransformDirection(Vector3.forward), out var hit, Mathf.Infinity, layerMask))
+        if (context.started)
         {
-            var zombieKill = hit.collider.gameObject.GetComponent<IZombie>();
-            zombieKill?.DoDamage();
-            IncreaseKillCount?.Invoke();
+            if (Physics.Raycast(point.transform.position, transform.TransformDirection(Vector3.forward), out var hit,
+                Mathf.Infinity, layerMask))
+            {
+                var zombieKill = hit.collider.gameObject.GetComponent<IZombie>();
+                bool isDead = false;
+                zombieKill?.DoDamage(50, out isDead);
+                if (isDead)
+                {
+                    IncreaseKillCount?.Invoke();
+                }
+            }
         }
     }
     public void DoDamage(float health)
