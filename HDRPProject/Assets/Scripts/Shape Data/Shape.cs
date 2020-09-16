@@ -2,14 +2,22 @@
 using Main_game_scripts;
 using SaveSystemScripts;
 using UnityEngine;
+using UnityEngine.AI;
 using UtilityScripts;
 
 namespace Shape_Data
 {
     public class Shape : PersistantObject, IZombie
-    { 
+    {
+        private NavMeshAgent nma;
         public float ZombieHealth = 100;
-       public int MaterialId { get; private set; } = int.MinValue;
+
+        private void Awake()
+        {
+            nma = GetComponent<NavMeshAgent>();
+        }
+
+        public int MaterialId { get; private set; } = int.MinValue;
 
         public int ShapeId 
         {
@@ -49,6 +57,11 @@ namespace Shape_Data
         {
             var kill = other.collider.gameObject.GetComponent<IPlayer>();
             kill?.DoDamage(10);
+        }
+
+        public void SetPosition(Vector3 position)
+        {
+            nma.Warp(position);
         }
 
         /// <summary>
