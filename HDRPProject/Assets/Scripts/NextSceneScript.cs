@@ -18,6 +18,9 @@ public class NextSceneScript : MonoBehaviour
     private BoxCollider _exitBox;
 
     public static event ResetTheLevel ResetLevel;
+
+    public static event RepositionPlayer ReposPlayer;
+    public static event TurnPlayerOff TogglePlayerOff;
     // Start is called before the first frame update
     private void Start()
     {
@@ -25,6 +28,7 @@ public class NextSceneScript : MonoBehaviour
 
         if (!isEntryDoor) return;
         
+        ToggleObjects(false);
         _exitBox.enabled = false;
         PlayerScript.IncreaseKillCount += IncreaseKillCount;
     }
@@ -39,13 +43,19 @@ public class NextSceneScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var player = other.gameObject.GetComponent<IPlayer>();
-        if (player != null)
-        {
-            director.Play();
-            camObject.SetActive(true);
-        }
+        if (player == null) return;
+        
+        ToggleObjects(true);
+        TogglePlayerOff?.Invoke();
+        director.Play();
     }
-    
+
+    private void ToggleObjects(bool toggle)
+    {
+        camObject.SetActive(toggle);
+        johnObject.SetActive(toggle);
+       
+    }
     private void IncreaseKillCount()
     {
         if (!isEntryDoor) return;
@@ -61,13 +71,13 @@ public class NextSceneScript : MonoBehaviour
 
     public void AnimationFinished()
     {
-        camObject.SetActive(false);
-        johnObject.SetActive(false);
+        ReposPlayer?.Invoke(johnObject.transform);
+        ToggleObjects(false);
     }
 
     public void AnimationStatered()
     {
-        camObject.SetActive(true);
-        johnObject.SetActive(true);
+        ToggleObjects(true);
+        TogglePlayerOff?.Invoke();
     }
 }

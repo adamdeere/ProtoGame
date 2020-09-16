@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class IntroClickManager : MonoBehaviour
 {
-   private string _sceneName;
+   [SerializeField] private string _sceneName;
    [SerializeField] private AudioListener _listener;
    private void Start()
    {
@@ -24,12 +24,13 @@ public class IntroClickManager : MonoBehaviour
 
    public void LoadNext(string nextLevelName)
    {
+      //SceneManager.LoadSceneAsync(nextLevelName, LoadSceneMode.Additive);
       StartCoroutine(LoadNextScene(nextLevelName));
    }
 
-   public void UnloadLast()
+   public void UnloadLast(string sceneName)
    {
-      SceneManager.UnloadSceneAsync(_sceneName);
+      SceneManager.UnloadSceneAsync(sceneName);
    }
    IEnumerator SceneSwitch()
    {
@@ -49,7 +50,5 @@ public class IntroClickManager : MonoBehaviour
       
       AsyncOperation loadTwo = SceneManager.LoadSceneAsync(level, LoadSceneMode.Additive);
       yield return loadTwo;
-      
-      SceneManager.UnloadSceneAsync(_sceneName);
    }
 }
