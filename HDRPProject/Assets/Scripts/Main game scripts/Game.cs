@@ -5,6 +5,7 @@ using Shape_Data;
 using Shape_Data.ShapeFactory;
 using SpawnItemScripts.SpawnZones;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 using UtilityScripts;
 using Random = UnityEngine.Random;
@@ -158,14 +159,14 @@ namespace Main_game_scripts
                 var pos = SpawnZoneOfLevel.SpawnPoint;
                 //we will need to find a better method of doing this. we may need to find a half way point of the mesh and add it to the Y value
                 pos.y = 10f;
-                t.transform.localPosition = pos;
+                instance.SetPosition(pos);
             }
         }
         private void CreateObject()
         {
             var instance = _shapeFactory.GetRandom();
             var t = instance.transform;
-            t.transform.localPosition = resetPosition.transform.localPosition;
+            instance.SetPosition(resetPosition.localPosition);
             t.gameObject.SetActive(false);
             _objectsList.Add(instance);
         }
