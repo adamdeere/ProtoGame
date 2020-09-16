@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class IntroClickManager : MonoBehaviour
 {
    private string _sceneName;
+   [SerializeField] private AudioListener _listener;
    private void Start()
    {
       _sceneName = SceneManager.GetActiveScene().name;
@@ -12,10 +13,12 @@ public class IntroClickManager : MonoBehaviour
 
    public void StartClickPressed()
    {
+      Destroy(_listener);
       StartCoroutine(SceneSwitch());
    }
    public void LoadClickPressed()
    {
+      Destroy(_listener);
       Debug.Log("load button pressed");
    }
 
@@ -28,7 +31,7 @@ public class IntroClickManager : MonoBehaviour
       AsyncOperation loadOne = SceneManager.LoadSceneAsync("MainGameSceneDup", LoadSceneMode.Additive);
       yield return loadOne;
       
-      AsyncOperation loadTwo = SceneManager.LoadSceneAsync("FirstLevel", LoadSceneMode.Additive);
+      AsyncOperation loadTwo = SceneManager.LoadSceneAsync("FirstLevelReal", LoadSceneMode.Additive);
       yield return loadTwo;
       
       

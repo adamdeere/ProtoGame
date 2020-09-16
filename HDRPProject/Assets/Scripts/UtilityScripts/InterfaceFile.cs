@@ -5,13 +5,17 @@ namespace UtilityScripts
 {
     public delegate void AddToSpawnZone(SpawnZone zone);
     public delegate GameObject ReturnPlayerFunction();
-    
-    public interface IKillableZombie
+
+    public delegate void IncreaseTheKill();
+
+    public delegate void ResetTheLevel(bool active); 
+
+    public interface IZombie
     {
         void DoDamage();
     }
     
-    public interface IKillablePlayer
+    public interface IPlayer
     {
         void DoDamage(float health);
     }

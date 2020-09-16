@@ -6,7 +6,7 @@ using UtilityScripts;
 
 namespace Shape_Data
 {
-    public class Shape : PersistantObject, IKillableZombie
+    public class Shape : PersistantObject, IZombie
     {
         public int ZombieHealth = 100;
        public int MaterialId { get; private set; } = int.MinValue;
@@ -41,12 +41,19 @@ namespace Shape_Data
             MaterialId = reader.ReadInt();
 
         }
+        /// <summary>
+        /// this is a zombie attack
+        /// </summary>
+        /// <param name="other"></param>
         private void OnCollisionEnter(Collision other)
         {
-            IKillablePlayer kill = other.collider.gameObject.GetComponent<IKillablePlayer>();
+            var kill = other.collider.gameObject.GetComponent<IPlayer>();
             kill?.DoDamage(10);
         }
 
+        /// <summary>
+        /// this is the damage for the zombie
+        /// </summary>
         public void DoDamage()
         {
             //reset the shapes original position and disable it
