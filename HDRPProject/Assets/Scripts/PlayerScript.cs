@@ -49,6 +49,8 @@ public class PlayerScript : MonoBehaviour, IPlayer
 
     [FormerlySerializedAs("_LayerMask")] [SerializeField] private LayerMask layerMask;
     [SerializeField] private Transform point;
+
+    [SerializeField] private PlaySoundEffect soundEffectScript;
     public float health = 100;
 
     public static event IncreaseTheKill IncreaseKillCount;
@@ -287,6 +289,7 @@ public class PlayerScript : MonoBehaviour, IPlayer
     {
         //if hit get interface comp 
         // Does the ray intersect any objects excluding the player layer
+        soundEffectScript.PlaySoundEffectFunction("gun");
         if (context.started)
         {
             if (Physics.Raycast(point.transform.position, transform.TransformDirection(Vector3.forward), out var hit,
