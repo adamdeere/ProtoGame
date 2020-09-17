@@ -107,10 +107,6 @@ namespace Shape_Data
             if (ZombieHealth < 1 && !dead)
             {
                 anim.SetTrigger("isDead");
-                StartCoroutine(TillDeath());
-                //var resetPos = Game.Instance.ResetPos();
-                //transform.localPosition = resetPos.localPosition;
-                //gameObject.SetActive(false);
                 dead = true;
                 nma.SetDestination(transform.position);
                 isDead = true;
@@ -126,7 +122,14 @@ namespace Shape_Data
                 isDead = false;
             }
         }
-
+        public void TillDeath()
+        {
+            var resetPos = Game.Instance.ResetPos();
+            transform.localPosition = resetPos.localPosition;
+            anim.ResetTrigger("isDead");
+            gameObject.SetActive(false);
+         
+        }
         public void AttackAnim()
         {
             throw new NotImplementedException();
@@ -138,17 +141,6 @@ namespace Shape_Data
             anim.ResetTrigger(triggerName);
         }
 
-        private IEnumerator TillDeath()
-        {
-            yield return new WaitForSeconds(1f);
-            while (anim.GetCurrentAnimatorStateInfo(0).IsName("ZombieDying"))
-            {
-                yield return null;
-            }
-            var resetPos = Game.Instance.ResetPos();
-            transform.localPosition = resetPos.localPosition;
-            anim.ResetTrigger("isDead");
-            gameObject.SetActive(false);
-        }
+       
     }
 }
