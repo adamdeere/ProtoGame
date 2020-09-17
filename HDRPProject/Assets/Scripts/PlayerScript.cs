@@ -61,15 +61,16 @@ public class PlayerScript : MonoBehaviour, IPlayer
         offsetCamera = _freeLookComponent.GetComponent<CinemachineCameraOffset>();
         initialPos = rb.position;
         OnValidate();
+   
+    }
+    private void OnEnable()
+    {
         Loco.GETPlayer += GetPlayer;
     }
-    
-
-    private void OnDisable()
+    private void OnDestroy()
     {
         Loco.GETPlayer -= GetPlayer;
     }
-
     private GameObject GetPlayer()
     {
         return gameObject;
@@ -101,8 +102,9 @@ public class PlayerScript : MonoBehaviour, IPlayer
         thisAnim.SetFloat("CombineSTS",vec2.x * vec2.y);
         ClearState();
     }
-    
-    void OnCollisionEnter (Collision collision) {
+
+    public void OnCollisionEnter (Collision collision) 
+    {
         if (collision.gameObject.name == "Resetter")
         {
             rb.position = initialPos;
@@ -119,7 +121,7 @@ public class PlayerScript : MonoBehaviour, IPlayer
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
     }
 
-    public void JumpPhysics()
+    private void JumpPhysics()
     {
         if (!_cutscene)
         {
