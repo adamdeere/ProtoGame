@@ -32,7 +32,7 @@ namespace Main_game_scripts
 
         //TODO 
         //change this back to true as i have changed it to false for testing purposes
-        private bool _levelActive = false;
+        private bool _levelActive = true;
 
         [SerializeField] private GameObject johnObject;
 
