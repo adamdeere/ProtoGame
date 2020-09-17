@@ -32,7 +32,7 @@ public class NextSceneScript : MonoBehaviour
         ToggleObjects(false);
         _exitBox.enabled = false;
         PlayerScript.IncreaseKillCount += IncreaseKillCount;
-        playMusicScript.PlaySoundMusic("level");
+       // playMusicScript.PlaySoundMusic("level");
         DontDestroyOnLoad(gameObject.transform.parent);
     }
 
@@ -48,7 +48,7 @@ public class NextSceneScript : MonoBehaviour
         var player = other.gameObject.GetComponent<IPlayer>();
         if (player == null) return;
         
-        playMusicScript.StopSoundMusic("level");
+       // playMusicScript.StopSoundMusic("level");
         ToggleObjects(true);
         TogglePlayerOff?.Invoke();
         director.Play();
