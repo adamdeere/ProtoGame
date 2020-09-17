@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.ComponentModel.Design;
 using Main_game_scripts;
 using SaveSystemScripts;
 using UnityEngine;
@@ -11,10 +13,13 @@ namespace Shape_Data
     {
         private NavMeshAgent nma;
         public float ZombieHealth = 100;
+        private Animator anim;
+        public bool dead = false;
 
         private void Awake()
         {
             nma = GetComponent<NavMeshAgent>();
+            anim = GetComponent<Animator>();
         }
 
         public int MaterialId { get; private set; } = int.MinValue;
@@ -34,6 +39,7 @@ namespace Shape_Data
                 }
             }
         }
+        
         
         //keep here until we can find a use for it
         public override void Save (GameDataWriter writer) 
@@ -56,7 +62,31 @@ namespace Shape_Data
         private void OnCollisionEnter(Collision other)
         {
             var kill = other.collider.gameObject.GetComponent<IPlayer>();
+            if (kill != null)
+            {
+                anim.SetBool("isAttacking", true);
+                kill.DoDamage(10);
+            }
+        }
+
+        private void OnCollisionStay(Collision other)
+        {
+            var kill = other.collider.gameObject.GetComponent<IPlayer>();
             kill?.DoDamage(10);
+        }
+
+        private void OnCollisionExit(Collision other)
+        {
+            var kill = other.collider.gameObject.GetComponent<IPlayer>();
+            if (kill != null)
+            {
+                anim.SetBool("isAttacking", false);
+            }
+        }
+
+        public void Resetter()
+        {
+            dead = false;
         }
 
         public void SetPosition(Vector3 position)
@@ -74,17 +104,51 @@ namespace Shape_Data
             //read only (as its in this case I think we can do the old duplicate trick for for more animations
             //we will need a converter tool)
             ZombieHealth -= damage;
-            if (ZombieHealth < 1)
+            if (ZombieHealth < 1 && !dead)
             {
-                var resetPos = Game.Instance.ResetPos();
-                transform.localPosition = resetPos.localPosition;
-                gameObject.SetActive(false);
+                anim.SetTrigger("isDead");
+                StartCoroutine(TillDeath());
+                //var resetPos = Game.Instance.ResetPos();
+                //transform.localPosition = resetPos.localPosition;
+                //gameObject.SetActive(false);
+                dead = true;
+                nma.SetDestination(transform.position);
                 isDead = true;
+            }
+            else if(!dead)
+            {
+                isDead = false;
+                anim.SetTrigger("beenHit");
+                StartCoroutine(ResetTrigger("beenHit"));
             }
             else
             {
                 isDead = false;
             }
+        }
+
+        public void AttackAnim()
+        {
+            throw new NotImplementedException();
+        }
+
+        private IEnumerator ResetTrigger(string triggerName)
+        {
+            yield return null;
+            anim.ResetTrigger(triggerName);
+        }
+
+        private IEnumerator TillDeath()
+        {
+            yield return new WaitForSeconds(1f);
+            while (anim.GetCurrentAnimatorStateInfo(0).IsName("ZombieDying"))
+            {
+                yield return null;
+            }
+            var resetPos = Game.Instance.ResetPos();
+            transform.localPosition = resetPos.localPosition;
+            anim.ResetTrigger("isDead");
+            gameObject.SetActive(false);
         }
     }
 }

@@ -108,7 +108,7 @@ public class PlayerScript : MonoBehaviour, IPlayer
             rb.position = initialPos;
         }
         IZombie kill = collision.collider.gameObject.GetComponent<IZombie>();
-        kill?.DoDamage(100, out bool isDead);
+        //kill?.DoDamage(100, out bool isDead);
         EvaluateCollision(collision);
     }
     void OnCollisionStay (Collision collision) {
