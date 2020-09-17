@@ -16,6 +16,7 @@ namespace UtilityScripts
     public interface IZombie
     {
         void DoDamage(float damage, out bool isDead);
+        void AttackAnim();
     }
     
     public interface IPlayer
