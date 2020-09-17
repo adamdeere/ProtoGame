@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 5390430141016125257}
   - component: {fileID: 1685854650233696136}
   m_Layer: 0
-  m_Name: John
+  m_Name: JohnCutScene
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
