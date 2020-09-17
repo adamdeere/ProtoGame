@@ -30,7 +30,9 @@ namespace Main_game_scripts
         [FormerlySerializedAs("CreationSpeed")] [SerializeField] private float creationSpeed;
         private float _creationProgress;
 
-        private bool _levelActive = true;
+        //TODO 
+        //change this back to true as i have changed it to false for testing purposes
+        private bool _levelActive = false;
 
         [SerializeField] private GameObject johnObject;
 
@@ -56,6 +58,8 @@ namespace Main_game_scripts
             NextSceneScript.ResetLevel += ResetGameLevel;
             NextSceneScript.ReposPlayer += RepositionPlayerObject;
             NextSceneScript.TogglePlayerOff += TogglePlayer;
+            ActivateLevel.OnActivateLevel += ActivateLevelSwitch;
+
         }
 
         private void Start()
@@ -89,8 +93,16 @@ namespace Main_game_scripts
             NextSceneScript.ResetLevel -= ResetGameLevel;
             NextSceneScript.ReposPlayer -= RepositionPlayerObject;
             NextSceneScript.TogglePlayerOff -= TogglePlayer;
+            ActivateLevel.OnActivateLevel -= ActivateLevelSwitch;
         }
 
+        private void ActivateLevelSwitch(bool activate)
+        {
+            //this will be set to true so the zombies will start spawning in again
+            _levelActive = activate;
+            creationSpeed += 0.1f;
+            _creationProgress = 0;
+        }
         private void RepositionPlayerObject(Transform trans)
         {
             johnObject.SetActive(true);
