@@ -33,6 +33,7 @@ public class NextSceneScript : MonoBehaviour
         _exitBox.enabled = false;
         PlayerScript.IncreaseKillCount += IncreaseKillCount;
         playMusicScript.PlaySoundMusic("level");
+        DontDestroyOnLoad(gameObject.transform.parent);
     }
 
     private void OnDestroy()
