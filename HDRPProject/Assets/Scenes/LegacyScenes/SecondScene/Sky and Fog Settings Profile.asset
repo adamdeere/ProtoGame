@@ -21,7 +21,7 @@ MonoBehaviour:
     max: 360
   skyIntensityMode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
   exposure:
     m_OverrideState: 1
     m_Value: 1
@@ -48,7 +48,7 @@ MonoBehaviour:
     min: 0
   includeSunInBaking:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   earthPreset:
     m_OverrideState: 1
     m_Value: 1
@@ -112,12 +112,12 @@ MonoBehaviour:
     max: 1
   numberOfBounces:
     m_OverrideState: 1
-    m_Value: 8
+    m_Value: 6
     min: 1
     max: 10
   groundTint:
     m_OverrideState: 1
-    m_Value: {r: 0.4, g: 0.25, b: 0.15, a: 1}
+    m_Value: {r: 0.4, g: 0.14901963, b: 0.37265518, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 0
@@ -146,12 +146,12 @@ MonoBehaviour:
     m_Value: {x: 0, y: 0, z: 0}
   colorSaturation:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.512
     min: 0
     max: 1
   alphaSaturation:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.413
     min: 0
     max: 1
   alphaMultiplier:
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   enabled:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   colorMode:
     m_OverrideState: 1
     m_Value: 1
